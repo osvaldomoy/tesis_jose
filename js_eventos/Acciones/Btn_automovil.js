@@ -16,7 +16,7 @@ function GuardarDatosAutomovil() {
     var id_modelo = dameIdModelo(modelo);
     var anho = $("#anho_automovil").val();
     
-    if (marca == "hola") {
+    if (marca == "") {
         $("#marca_automovil").focus();
         $("#marca_automovil").addClass("is-invalid");
 
