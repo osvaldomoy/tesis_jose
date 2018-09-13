@@ -127,9 +127,7 @@ if (isset($_POST["id_delete"])) {
 if (!empty($borrarServicio)) {
 
     BorrarDatosServicio($borrarServicio);
-} else {
-    echo 'no';
-}
+} 
 
 function BorrarDatosServicio($borrarServicio) {
 

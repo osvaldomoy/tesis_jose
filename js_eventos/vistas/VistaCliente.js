@@ -11,11 +11,12 @@ function validarCliente() {
         data: "cedula=" + cedula,
 
         success: function (datos) {
-
+            alert(datos);
             existe_cliente = datos;
         }
     });
 
+     
     //en el caso que el cliente exista realizamos lo siguiente
     if (existe_cliente == 1) {
         var htmltext = "";
