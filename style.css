@@ -1,0 +1,21 @@
+.color-verde{
+	background-color: #0E5B36;
+	color: aliceblue;
+}
+.color-amarilo{
+	background-color: #D7BE1B;
+}
+*{
+	background-color: none;
+	box-sizing: border-box;
+	font-family: 'Josefin Sans', sans-serif;
+	box-sizing: border-box;
+}
+
+#contenedor-cliente {
+	background-color: red !important;
+	
+}
+.fondo-espera{
+	background: red !important;
+}
