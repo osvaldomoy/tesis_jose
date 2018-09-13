@@ -54,7 +54,7 @@ function GuardarDatosAutomovil() {
         type: "POST",
         async: false,
         cache: false,
-        url: "../controladores/ControladorModelo.php",
+        url: "../controladores/ControladorAutomovil.php",
         data: datos,
         success: function (datos) {
             //alert(datos);
