@@ -85,6 +85,7 @@ function CargarMarcaAutomovil() {
     });
     
     $("#marca_automovil").html(contenido);
+    $("#marca_automovil_modelo").html(contenido);
 }
 
 //OBTENER ID DE MARCA

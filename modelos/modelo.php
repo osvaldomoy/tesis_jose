@@ -3,6 +3,7 @@
 	class Modelo {
 		
 		private $id_modelo;
+                private $id_marca;
 		private $descripcion;
 				
 		
@@ -33,9 +34,10 @@
 			
 		}
 		
-		function __construct2($id_modelo, $descripcion){
+		function __construct3($id_modelo, $id_marca, $descripcion){
 			
 			$this->id_modelo = $id_modelo;
+			$this->id_marca = $id_marca;
 			$this->descripcion = $descripcion;
 			
 		}
@@ -44,6 +46,10 @@
 		
 		public function getIdModelo(){
 			return($this->id_modelo);
+		}
+                
+		public function getIdMarca(){
+			return($this->id_marca);
 		}
 		
 		public function getDescripcion(){
