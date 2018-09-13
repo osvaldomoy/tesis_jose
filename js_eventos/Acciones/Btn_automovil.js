@@ -46,7 +46,7 @@ function GuardarDatosAutomovil() {
         return;
     }
 
-
+    // esto es una prueba
 
     var datos = "marca=" + marca + "&modelo=" + modelo + "&anho=" + anho;
 
