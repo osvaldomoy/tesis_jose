@@ -145,4 +145,44 @@ function BorrarDatosModelo($borrarInsumo) {
     $conexion->dameConexion()->query($sql);
 }
 
+//-----------------------------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------------------------
+	if(isset($_POST['precio_insumo_nombre'])  
+	 ){
+		
+		
+		$nombre = $_POST['precio_insumo_nombre'];
+		
+		
+		damePrecioInsumoPorNombre($nombre);
+		
+	}
+
+	
+
+	function damePrecioInsumoPorNombre($nombre){
+		
+		require_once "../conexion/conexion.php";
+		$conexion = new Conexion();
+		$conexion->iniciarSesion();
+		
+		$consulta = mysqli_query($conexion->dameConexion(), "SELECT precio FROM insumos WHERE nombre LIKE '".$nombre."'");
+
+		
+		if (mysqli_num_rows($consulta) > 0){
+			
+			 while($row = mysqli_fetch_array($consulta)){
+				echo  $row[0];
+			 }
+			
+			 
+		}else{
+			echo 0;
+		}
+		
+		
+		
+		
+	}
+
 ?>

@@ -167,7 +167,8 @@ function validar($usuario, $pass) {
 
     $conexion = new Conexion();
     $conexion->iniciarSesion();
-    $consulta = mysqli_query($conexion->dameConexion(), "SELECT id_usuario, pass FROM usuarios WHERE usuario LIKE '" . $usuario . "'");
+    $consulta = mysqli_query($conexion->dameConexion(), "SELECT id_usuario, "
+            . "pass FROM usuarios WHERE usuario LIKE '" . $usuario . "'");
 
     if (mysqli_num_rows($consulta) > 0) {
 

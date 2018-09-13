@@ -313,4 +313,30 @@ function dameIdServicio($id_servicio) {
     }
 }
 
+
+//----------------------- OBTENER PRECIO  DE SERVICIO POR MEDIO DE LA DESCRIPCIÓN --------------------------------------------
+	if(isset($_POST["nombre_precio"])){
+		$precio_nombre = $_POST["nombre_precio"];
+	}
+
+	if(!empty($precio_nombre)){
+		damePrecioServicio($precio_nombre);
+	}
+
+
+	function damePrecioServicio($precio_nombre){
+		$conexion = new Conexion();
+		$conexion->iniciarSesion();
+		$consulta = mysqli_query($conexion->dameConexion(), "SELECT precio FROM servicios WHERE descripcion LIKE '".$precio_nombre."'");
+		if (mysqli_num_rows($consulta) > 0){
+			 
+			while($row = mysqli_fetch_array($consulta)) {
+				echo $row[0];
+			}
+			
+		} else { 
+			echo 0; 
+		}
+	}
+
 ?>
