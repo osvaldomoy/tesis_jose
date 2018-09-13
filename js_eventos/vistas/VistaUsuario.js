@@ -24,8 +24,9 @@ function validarUsuario(){
         cache: true,
         url: "../controladores/ControladorUsuario.php",
         data: datos,
-        success: function(data){
-            respuesta = data;
+        success: function(datos){
+            alert(datos)
+            respuesta = datos;
         }
     });
 	

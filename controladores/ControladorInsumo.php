@@ -130,9 +130,7 @@ if (isset($_POST["id_delete"])) {
 if (!empty($borrarInsumo)) {
 
     BorrarDatosModelo($borrarInsumo);
-} else {
-    echo 'no';
-}
+} 
 
 function BorrarDatosModelo($borrarInsumo) {
 

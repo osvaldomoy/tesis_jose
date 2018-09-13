@@ -134,9 +134,7 @@ if (isset($_POST["id_delete"])) {
 if (!empty($borrarUsuario)) {
 
     BorrarDatosUsuario($borrarUsuario);
-} else {
-    echo 'no';
-}
+} 
 
 function BorrarDatosUsuario($borrarUsuario) {
 

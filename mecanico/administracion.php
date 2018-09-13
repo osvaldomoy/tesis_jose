@@ -5,13 +5,13 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Administración - Mecánico</title>
-
-	<link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="../style.css">
 	<script src="../js/bootstrap.min.js"></script>
+	<link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<script src="../js_eventos/jquery.js"></script>
 	<script src="../js_eventos/vistas/VistaUsuario.js"></script>
 	<script src="../js_eventos/ActualizarBoleta.js"></script>
+		<script src="../js_eventos/vistas/VistaClienteEspera.js"></script>
 	<link rel="stylesheet" href="../fontawesome-free-5.0.13/web-fonts-with-css/css/fontawesome-all.css">
 	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
 
@@ -82,11 +82,11 @@
 										padding:  10px 0px;
 										font-family: 'Josefin Sans', sans-serif;
 										margin: 0px;
-										">Cliente Actual</div>
+										">Siguiente en Atención</div>
 			
-		  <div class="card col" style="background: rgba(255,255,255,0.45);">
-			  <div class="card-body">
-			    <h5 class="card-title" style="font-size: 35px;">Luis Guzman</h5>
+		  <div class="card col contenido-cliente-espera" style="background: rgba(255,255,255,0.45);">
+			  <div class="card-body ">
+			    <!--<h5 class="card-title" style="font-size: 35px;">Luis Guzman</h5>
 			    <p class="card-text"></p>
 				  <p><b>Servicio  Solicitado:</b> Nombre del servicio</p>
 				  <p><b>Vehículo:</b> 
@@ -98,7 +98,75 @@
 				  </p>
 				  
 			    </div>
+			 <button type="button" class="btn btn-primary" style="margin: 10px 0px;" onClick="atenderCliente(); return true;">ATENDER</button>-->
+			  <script>
+				  //obtiene el siguiente cliente en ser atendido
+				  dameClienteEspera();
+			  </script>
 		  </div>
+		  
+        </div>
+      </div>
+    </div>
+	
+	
+	
+	
+	<div class="container-fluid" style="padding: 0px;">
+	  <div class="row" style="margin: 0px;
+							  padding: 0px;">
+	    <div class="col-xl-6" style="margin: 0px;
+									 padding: 0px;">
+		  <div class="container" style="width: 100%; 
+										background: rgba(26,26,26,1.00);
+										color: aliceblue;
+										font-size: 25px;
+										text-align: center;
+										padding:  10px 0px;
+										font-family: 'Josefin Sans', sans-serif;
+										margin: 0px;
+										">Estas Atendiendo a</div>
+			
+			
+			<div class="card col contenido-cliente-actual" style="background: rgba(255,255,255,0.45);">
+			  <!--<div class="card-body contenido-cliente-actual">
+			    <!--<h5 class="card-title" style="font-size: 35px;">Luis Guzman</h5>
+			    <p class="card-text"></p>
+				  <p><b>Servicio  Solicitado:</b> Nombre del servicio</p>
+				  <p><b>Vehículo:</b> 
+					  <ul>
+					  	<li><b>Marca: </b><span>Marca</span></li>
+					  	<li><b>Modelo: </b><span>Marca</span></li>
+					  	<li><b>Chapa: </b><span>Marca</span></li>
+					  </ul>
+				  </p>
+				  
+			    </div>
+			 <button type="button" class="btn btn-danger" style="margin: 10px 0px;" onClick="atenderCliente(); return true;">Terminar</button>-->
+				
+			  <script>
+				  //obtiene el siguiente cliente en ser atendido
+				  clienteAtencion();
+			  </script>
+		  </div>
+			
+			
+        </div>
+	    <div class="col-xl-6" style="margin: 0px;
+									 padding: 0px;
+									 ">
+			<div class="container" style="width: 100%; 
+										background: rgba(26,26,26,1.00);
+										color: aliceblue;
+										font-size: 25px;
+										text-align: center;
+										padding:  10px 0px;
+										font-family: 'Josefin Sans', sans-serif;
+										margin: 0px;
+										">Siguiente en Atención</div>
+			
+		  
+		  
         </div>
       </div>
     </div>

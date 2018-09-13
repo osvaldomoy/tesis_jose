@@ -11,12 +11,12 @@ function validarCliente() {
         data: "cedula=" + cedula,
 
         success: function (datos) {
-            alert(datos);
+
             existe_cliente = datos;
         }
     });
 
-     
+
     //en el caso que el cliente exista realizamos lo siguiente
     if (existe_cliente == 1) {
         var htmltext = "";
@@ -177,6 +177,7 @@ function CargaDatosTabla() {
                 data: "modelo=" + d2 + "&marca=" + d3 + "&servicio=" + servicio,
 
                 success: function (datos) {
+                    
                     temp += datos.trim();
 
                 }
@@ -188,6 +189,7 @@ function CargaDatosTabla() {
             contenido_stock += "<ul>";
 
             for (var i = 0; i < descripciones_stock.length - 1; i++) {
+                
                 contenido_stock += "<li>" + descripciones_stock[i].split(',')[0] + " <b>Cantidad </b>" + descripciones_stock[i].split(',')[1] + "</li>";
 
 
@@ -199,6 +201,7 @@ function CargaDatosTabla() {
                     data: "precio_insumo_nombre=" + descripciones_stock[i].split(',')[0],
 
                     success: function (datos) {
+                        alert(datos);
                         total_insumo += parseInt(datos) * parseInt(descripciones_stock[i].split(',')[1]);
                     }
                 });
@@ -219,7 +222,7 @@ function CargaDatosTabla() {
                 data: "nombre_precio=" + servicio,
 
                 success: function (datos) {
-                    alert(datos);
+                    
                     total += parseInt(datos);
                 }
             });
@@ -237,17 +240,41 @@ function CargaDatosTabla() {
             "</table>" +
             //cargamos los datos de la otra tabla
 
-            $(".contenido-otra-tabla").html(tableDatos);
+    $(".contenido-otra-tabla").html(tableDatos);
     $(".mensaje-stock").html(contenido_stock);
+    alert(total_insumo);
+    alert(total);
     total += total_insumo;
 
 
-    $(".total-a-pagar").text(format(total.toString()));
+    $(".total-a-pagar").text(formatNumber(total));
     //boramos los datos;
     tableDatos = "";
 
 }
 
+
+/**
+ * Formateador de miles
+ * 
+ */
+function formatNumber(num) {
+    if (!num || num == 'NaN') return '-';
+    if (num == 'Infinity') return '&#x221e;';
+    num = num.toString().replace(/\$|\,/g, '');
+    if (isNaN(num))
+        num = "0";
+    sign = (num == (num = Math.abs(num)));
+    num = Math.floor(num * 100 + 0.50000000001);
+    cents = num % 100;
+    num = Math.floor(num / 100).toString();
+//    if (cents < 0)
+//        cents = "0" + cents;
+    for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3) ; i++)
+        num = num.substring(0, num.length - (4 * i + 3)) + '.' + num.substring(num.length - (4 * i + 3));
+    return (((sign) ? '' : '-') + num);
+//    return (((sign) ? '' : '-') + num + ',' + cents);
+}
 
 //----------------------------- ENVIAR DATOS DE CLIENTE A LA TABLA CLIENTES_EN_EPSERA --------------------
 
@@ -255,69 +282,69 @@ function CargaDatosTabla() {
 function GuardarClienteEspera() {
 
     var cedula = $('#cedula_cliente').val();
-	var id_cliente = 0;
-	//var info = "";
-	
-	$.ajax({
-		type: "POST",
-		async: false,
-		cache: false,
-		url: "../controladores/ControladorCliente.php",
-		data: "id="+cedula,
-		success: function(datos) {
-			id_cliente = datos; // codigo del cliente
-			//alert('CODIGO CLIENTE: '+id_cliente);
-		}
-	});
-	//info += id_cliente+"\n";
-	var datecap = 1;
-		
-			
-		
-		
-	
-	$("td[class=columna_servicio]").each(function(){
-		
-		var id_servicio = 'hola';
-		var servicio = $(this).text();
-		
-		$.ajax({
-			type: "POST",
-			async: false,
-			cache: false,
-			url: "../controladores/ControladorServicio.php",
-			data: "nombre="+servicio,
-			success: function(datos) {
-				id_servicio = datos; // codigo del servicio
-				//alert('CODIGO SERVICIO: '+id_servicio);
-			}
-		});
-		
-		//info += id_servicio+"\n";
-		//-------------------- OBTENER YYYY:MM:DD:HH:MM:SS ---------------------------------
-		
+    var id_cliente = 0;
+    //var info = "";
 
-		
-		//alert('FECHA: '+valdate);
-		
-		//info += valdate+"\n";
-		
-		$.ajax({
-			type: "POST",
-			async: false,
-			cache: false,
-			url: "../controladores/ControladorTicket.php",
-			data: "codigo_cliente="+id_cliente+"&codigo_servicio="+id_servicio+"&fecha="+valdate+"&modelo=",
-			error: function(prueba){
-				alert("No guardado");
-			},
-			success: function(datos) {
-				
-				alert("Datos guardados");
-			}
-		});
-		
-	});
+    $.ajax({
+        type: "POST",
+        async: false,
+        cache: false,
+        url: "../controladores/ControladorCliente.php",
+        data: "id=" + cedula,
+        success: function (datos) {
+            id_cliente = datos; // codigo del cliente
+            //alert('CODIGO CLIENTE: '+id_cliente);
+        }
+    });
+    //info += id_cliente+"\n";
+    var datecap = 1;
+
+
+
+
+
+    $("td[class=columna_servicio]").each(function () {
+
+        var id_servicio = 'hola';
+        var servicio = $(this).text();
+
+        $.ajax({
+            type: "POST",
+            async: false,
+            cache: false,
+            url: "../controladores/ControladorServicio.php",
+            data: "nombre=" + servicio,
+            success: function (datos) {
+                id_servicio = datos; // codigo del servicio
+                //alert('CODIGO SERVICIO: '+id_servicio);
+            }
+        });
+
+        //info += id_servicio+"\n";
+        //-------------------- OBTENER YYYY:MM:DD:HH:MM:SS ---------------------------------
+
+
+
+        //alert('FECHA: '+valdate);
+
+        //info += valdate+"\n";
+
+        $.ajax({
+            type: "POST",
+            async: false,
+            cache: false,
+            url: "../controladores/ControladorTicket.php",
+            data: "codigo_cliente=" + id_cliente + "&codigo_servicio=" + id_servicio + "&fecha=" + valdate + "&modelo=",
+            error: function (prueba) {
+                alert("No guardado");
+            },
+            success: function (datos) {
+
+                alert("Datos guardados");
+            }
+        });
+
+    });
 
 }
 
