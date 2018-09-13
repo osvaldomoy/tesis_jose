@@ -16,14 +16,32 @@ function GuardarDatosAutomovil() {
     var id_modelo = dameIdModelo(modelo);
     var anho = $("#anho_automovil").val();
     
-    alert(id_marca + " " + id_modelo);
-    
     if (marca == "") {
         $("#marca_automovil").focus();
         $("#marca_automovil").addClass("is-invalid");
 
         $("#marca_automovil").click(function () {
             $("#marca_automovil").removeClass("is-invalid");
+        });
+        return;
+    }
+    
+    if (modelo == "") {
+        $("#modelo_automovil").focus();
+        $("#modelo_automovil").addClass("is-invalid");
+
+        $("#modelo_automovil").click(function () {
+            $("#modelo_automovil").removeClass("is-invalid");
+        });
+        return;
+    }
+    
+    if (anho == "") {
+        $("#anho_automovil").focus();
+        $("#anho_automovil").addClass("is-invalid");
+
+        $("#anho_automovil").click(function () {
+            $("#anho_automovil").removeClass("is-invalid");
         });
         return;
     }
