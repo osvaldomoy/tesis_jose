@@ -7,12 +7,13 @@
                 (isset($_POST['codigo_servicio'])) and 
                 (isset($_POST['fecha'])) and 
                 (isset($_POST['total'])) and
-                (isset($_POST['id_']))){
+                (isset($_POST['codigo_detalle_identidad']))){
 		
 		$codigo_cliente = $_POST['codigo_cliente'];
 		$codigo_servicio = $_POST['codigo_servicio'];
 		$fecha = $_POST['fecha'];
 		$total = $_POST['total'];
+		$codigo_detalle_identidad = $_POST['codigo_detalle_identidad'];
 		
 		$guardarCliente = new ClientesEnEspera($codigo_cliente, $codigo_servicio, $fecha);
 	}

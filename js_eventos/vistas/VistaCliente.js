@@ -182,6 +182,7 @@ function CargaDatosTabla() {
 
                 }
             });
+            alert(temp);
 
 
             var descripciones_stock = temp.split('-');
@@ -329,6 +330,8 @@ function GuardarClienteEspera() {
         //alert('FECHA: '+valdate);
 
         //info += valdate+"\n";
+        
+        //total a pagar
         var total = $('.total-a-pagar').text();
         
         $.ajax({
@@ -337,7 +340,8 @@ function GuardarClienteEspera() {
             cache: false,
             url: "../controladores/ControladorTicket.php",
             data: "codigo_cliente=" + id_cliente + "&codigo_servicio=" + 
-                    id_servicio + "&fecha=" + valdate + "&total="+total,
+                    id_servicio + "&fecha=" + valdate + "&total="+total +
+                    "&codigo_detalle_identidad=",
             error: function (prueba) {
                 alert("No guardado");
             },
