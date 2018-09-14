@@ -391,6 +391,10 @@ function nombreApellido() {
     //funcion
 }
 
+function holaLuis() {
+    //kp
+}
+
 
 
 
