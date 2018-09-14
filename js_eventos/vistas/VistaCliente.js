@@ -374,7 +374,14 @@ function GuardarClienteEspera() {
 //hola123 
 //hola 123
 //-------------------------------------------------------------------------------------------
-
+//Luis Guzman
+/**
+ * 
+ * @returns {undefined}
+ */
+function nombre() {
+    //funcion
+}
 
 
 
