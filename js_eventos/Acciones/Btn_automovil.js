@@ -56,9 +56,9 @@ function GuardarDatosAutomovil() {
         return;
     }
 
-    var datos = "id_marca=" + id_marca + "&_id_modelo=" + id_modelo + "&anho=" + anho;
+    var datos = "id_marca=" + id_marca + "&id_modelo=" + id_modelo + "&anho=" + anho;
 
-    alert(datos);
+    //alert(datos);
 
     $.ajax({
         type: "POST",
@@ -67,7 +67,7 @@ function GuardarDatosAutomovil() {
         url: "../controladores/ControladorAutomovil.php",
         data: datos,
         success: function (datos) {
-            alert(datos);
+            //alert(datos);
         }
     });
 

@@ -37,13 +37,11 @@
 		}
 		
 				
-		function __construct5($id_automovil, $id_modelo, $anho, $id_marca, $activo){
+		function __construct3($id_modelo, $anho, $id_marca){
 			
-			$this->id_automovil = $id_automovil;
 			$this->id_modelo = $id_modelo;
 			$this->anho = $anho;
-			$this->id_marca = $id_marca;;
-			$this->activo = $activo;
+			$this->id_marca = $id_marca;
 			
 		}
 		
