@@ -356,52 +356,7 @@ function GuardarClienteEspera() {
     });
 
 }
-// prueba
-// prueba
-// prueba
-// prueba
-//hola 123  
-//hola 123
-//hola 132
-//hola 123 
-//hola 123 
-//hola 123 
-//hola 123 
-//hola123 
-//hola 123 
-//hola 123 
-//hola 123 
-//hola123 
-//hola 123
-//-------------------------------------------------------------------------------------------
-//Luis Guzman
-/**
- * 
- * @returns {undefined}
- */
-function nombre() {
-    //funcion
-}
-//Luis Guzman
-/**
- * 
- * @returns {undefined}
- */
-function nombreApellido() {
-    //funcion
-}
-//Luis Guzman
-/**
- * 
- * @returns {undefined}
- */
-function nombreApellido2141() {
-    //funcion
-}
 
-function holaLuis() {
-    //kp
-}
 
 
 
