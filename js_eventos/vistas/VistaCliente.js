@@ -254,6 +254,7 @@ function CargaDatosTabla() {
 //    alert(total);
     total += total_insumo;
 
+//hola
 
     $(".total-a-pagar").text(formatNumber(total));
     //boramos los datos;
@@ -359,7 +360,19 @@ function GuardarClienteEspera() {
 // prueba
 // prueba
 // prueba
-
+//hola
+//hola
+//hola
+//hola
+//hola
+//hola
+//hola
+//hola
+//hola
+//hola
+//hola
+//hola
+//hola
 //-------------------------------------------------------------------------------------------
 
 
