@@ -43,4 +43,41 @@ function dameTodoAuto() {
     }
 }
 
+//------------------------------- GUARDAR DATOS AUTOMOVIL -----------------------------------
+
+
+require_once("../conexion/conexion.php");
+require_once("../modelos/automovil.php");
+
+
+if (isset($_POST["id_marca"]) and isset($_POST["id_modelo"]) and isset($_POST["anho"])) {
+
+    $id_marca = $_POST["id_marca"];
+    $id_modelo = $_POST["id_modelo"];
+    $anho = $_POST["anho"];
+
+    $guardarAutomovil = new Automovil($id_modelo, $anho, $id_marca);
+}
+
+$prueba = 'hola';
+
+if (!empty($prueba)) {
+    GuardarDatosAutomovil($guardarAutomovil);
+}
+
+function GuardarDatosAutomovil($guardarAutomovil) {
+
+    $sql = "INSERT INTO automovil (id_marca, id_modelo, anho, activo) VALUES ("
+            . $guardarAutomovil->getIdMarca() . ", "
+            . $guardarAutomovil->getIdModelo() . ", "
+            . $guardarAutomovil->getAnho() . ", "
+            . "1)";
+
+    echo $sql;
+
+    $conexion = new Conexion();
+    $conexion->iniciarSesion();
+    $conexion->dameConexion()->query($sql);
+}
+
 ?>
