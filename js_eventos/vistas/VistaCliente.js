@@ -382,6 +382,14 @@ function GuardarClienteEspera() {
 function nombre() {
     //funcion
 }
+//Luis Guzman
+/**
+ * 
+ * @returns {undefined}
+ */
+function nombreApellido() {
+    //funcion
+}
 
 
 
