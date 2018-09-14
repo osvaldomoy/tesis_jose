@@ -201,7 +201,7 @@ function CargaDatosTabla() {
                     data: "precio_insumo_nombre=" + descripciones_stock[i].split(',')[0],
 
                     success: function (datos) {
-                        alert(datos);
+//                        alert(datos);
                         total_insumo += parseInt(datos) * parseInt(descripciones_stock[i].split(',')[1]);
                     }
                 });
@@ -242,8 +242,8 @@ function CargaDatosTabla() {
 
     $(".contenido-otra-tabla").html(tableDatos);
     $(".mensaje-stock").html(contenido_stock);
-    alert(total_insumo);
-    alert(total);
+//    alert(total_insumo);
+//    alert(total);
     total += total_insumo;
 
 
