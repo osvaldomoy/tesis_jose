@@ -244,6 +244,14 @@ function CargaDatosTabla() {
     $(".mensaje-stock").html(contenido_stock);
 //    alert(total_insumo);
 //    alert(total);
+//    alert(total);
+//    alert(total);
+//    alert(total);
+//    alert(total);
+//    alert(total);
+//    alert(total);
+//    alert(total);
+//    alert(total);
     total += total_insumo;
 
 
