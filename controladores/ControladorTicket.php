@@ -3,12 +3,16 @@
 	require_once("../conexion/conexion.php");
 	require_once("../modelos/clientes_en_espera.php");
 
-	if(isset($_POST['codigo_cliente']) and (isset($_POST['codigo_servicio'])) and (isset($_POST['fecha'])) 
-	 ){
+	if(isset($_POST['codigo_cliente']) and 
+                (isset($_POST['codigo_servicio'])) and 
+                (isset($_POST['fecha'])) and 
+                (isset($_POST['total'])) and
+                (isset($_POST['id_']))){
 		
 		$codigo_cliente = $_POST['codigo_cliente'];
 		$codigo_servicio = $_POST['codigo_servicio'];
 		$fecha = $_POST['fecha'];
+		$total = $_POST['total'];
 		
 		$guardarCliente = new ClientesEnEspera($codigo_cliente, $codigo_servicio, $fecha);
 	}

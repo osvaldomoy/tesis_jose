@@ -23,7 +23,9 @@
           align-items: center;
           align-content: center;
           height: 100%;
+          
           ">
+        
         <div class="card text-center col-md-4" style="margin: 100px auto;">
             <div class="card-header" style="font-size: 50px;
                  font-weight: 600;
