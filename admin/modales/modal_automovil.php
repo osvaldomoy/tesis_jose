@@ -13,13 +13,13 @@
 		  <div class="form-group row">
 			  <div class="col-sm">
 				  <input type="text"  id="id_automovil" class="form-control form-control-sm" style='display: none'>
-                                  <select id="marca_automovil" class="form-control form-control-sm placeholder">
+                                  <select id="marca_automovil" class="form-control form-control-sm" required>
                                       
                                   </select>
 				<!--<small id="emailHelp" class="form-text text-muted">Campo requerido.</small>-->
 			  </div>
 			  <div class="col-sm">
-                                  <select id="modelo_automovil" class="form-control form-control-sm placeholder">
+                                  <select id="modelo_automovil" class="form-control form-control-sm" required>
                                       
                                   </select>
 				<!--<small id="emailHelp" class="form-text text-muted">Campo requerido.</small>-->
@@ -27,7 +27,7 @@
 		  </div>
 		  <div class="form-group row">
 			  <div class="col-sm">
-                                  <select id="anho_automovil" class="form-control form-control-sm placeholder">
+                                  <select id="anho_automovil" class="form-control form-control-sm" required>
                                       
                                   </select>
 				<!--<small id="emailHelp" class="form-text text-muted">Campo requerido.</small>-->

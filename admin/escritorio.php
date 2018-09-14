@@ -43,17 +43,16 @@
                 padding-left: 40px;
             }
 
-            .placeholder{
-                color: grey;
+            select:required:invalid {
+                color: gray;
             }
-
-            select option:first-child{
-                color: grey; 
+            
+            option[value=""][disabled] {
                 display: none;
             }
-
-            select option{
-                color: #555;
+            
+            option {
+                color: black;
             }
 
         </style>

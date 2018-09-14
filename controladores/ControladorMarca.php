@@ -142,9 +142,36 @@ function dameMarca() {
     $consulta = mysqli_query($conexion->dameConexion(), "SELECT descripcion FROM marca WHERE activo = 1");
 
     if (mysqli_num_rows($consulta) > 0) {
-        echo "<option value=''>Marca</option>";
+        echo "<option class='valor' value='' disabled selected>Marca</option>";
         while ($row = mysqli_fetch_array($consulta)) {
             echo "<option>$row[0]</option>";
+        }
+    } else {
+        echo "No hay datos";
+    }
+}
+
+//----------------------- MOSTRAR NOMBRE MARCA-------------------------------------
+
+if (isset($_POST["dato"])) {
+    $dato = $_POST["dato"];
+}
+
+if (!empty($dato)) {
+    dameDescripcionMarca($dato);
+}
+
+function  dameDescripcionMarca($dato) {
+
+    require_once "../conexion/conexion.php";
+    $conexion = new Conexion();
+    $conexion->iniciarSesion();
+    $consulta = mysqli_query($conexion->dameConexion(), "SELECT descripcion FROM marca WHERE id_marca = "
+            ." ". $dato ." AND activo = 1");
+
+    if (mysqli_num_rows($consulta) > 0) {
+        while ($row = mysqli_fetch_array($consulta)) {
+            echo $row[0];
         }
     } else {
         echo "No hay datos";

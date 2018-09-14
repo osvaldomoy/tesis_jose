@@ -12,12 +12,13 @@
         <form>
 		  <div class="form-group row">
 			  <div class="col-sm">
-				  <select id="marca_automovil_modelo" class="form-control form-control-sm placeholder">
+                              <select id="marca_automovil_modelo" class="form-control form-control-sm" required>
                                       
                                   </select>
 			  </div>
 			  <div class="col-sm">
 				  <input type="text"  id="id_modelo" class="form-control form-control-sm" style='display: none'>
+				  <input type="text"  id="id_marca_modelo" class="form-control form-control-sm" style='display: none'>
 				  <input type="text"  id="descripcion_modelo" class="form-control form-control-sm" placeholder="&#xf007; Modelo">
 				<!--<small id="emailHelp" class="form-text text-muted">Campo requerido.</small>-->
 			  </div>

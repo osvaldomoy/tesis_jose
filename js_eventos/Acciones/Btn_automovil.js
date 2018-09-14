@@ -2,6 +2,15 @@
 
 $(document).on('click', '#btn-anhadir-automovil', function() {
     
+    $("#marca_automovil").change(function() {
+        
+        var marca = $("#marca_automovil").val();
+        var id_marca = dameIdMarca(marca);
+
+        CargarIdModeloPorIdMarca(id_marca);
+        
+    });
+    
     CargarMarcaAutomovil();
     CargarModeloAutomovil();
     AnhoAutomovil();
@@ -9,14 +18,15 @@ $(document).on('click', '#btn-anhadir-automovil', function() {
 });
 
 function GuardarDatosAutomovil() {
-
+    
     var marca = $("#marca_automovil").val();
     var id_marca = dameIdMarca(marca);
     var modelo = $("#modelo_automovil").val();
     var id_modelo = dameIdModelo(modelo);
     var anho = $("#anho_automovil").val();
     
-    if (marca == "") {
+    
+    if (marca == null) {
         $("#marca_automovil").focus();
         $("#marca_automovil").addClass("is-invalid");
 
@@ -26,7 +36,7 @@ function GuardarDatosAutomovil() {
         return;
     }
     
-    if (modelo == "") {
+    if (modelo == null) {
         $("#modelo_automovil").focus();
         $("#modelo_automovil").addClass("is-invalid");
 
@@ -57,7 +67,7 @@ function GuardarDatosAutomovil() {
         url: "../controladores/ControladorAutomovil.php",
         data: datos,
         success: function (datos) {
-            //alert(datos);
+            alert(datos);
         }
     });
 
@@ -66,6 +76,27 @@ function GuardarDatosAutomovil() {
     ResetModalAutomovil();
 
 }
+
+// CARGAR ID MODELO EN FUNCION AL ID MARCA
+
+function CargarIdModeloPorIdMarca(modelo_n) {
+    
+    var contenido = "";
+
+    $.ajax({
+        type: "POST",
+        async: false,
+        cache: false,
+        url: "../controladores/ControladorModelo.php",
+        data: "id_mara_modelo=" +modelo_n,
+        success: function (datos) {
+            contenido += datos;
+        }
+    });
+    
+    $("#modelo_automovil").html(contenido);
+}
+
 
 // CARGAR MARCA DE AUTOMOVIL EN EL SELECT
 

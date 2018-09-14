@@ -33,6 +33,13 @@
 			$this->id_modelo = $id_modelo;
 			
 		}
+                
+		function __construct2($id_marca, $descripcion){
+			
+                    $this->id_marca = $id_marca;
+                    $this->descripcion = $descripcion;
+			
+		}
 		
 		function __construct3($id_modelo, $id_marca, $descripcion){
 			

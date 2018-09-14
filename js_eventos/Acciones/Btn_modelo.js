@@ -34,7 +34,7 @@ function GuardarDatosModelo() {
 
     var datos = "id_marca=" + id_marca + "&descripcion=" + descripcion;
 
-    alert(datos);
+    //alert(datos);
 
     $.ajax({
         type: "POST",
@@ -43,7 +43,7 @@ function GuardarDatosModelo() {
         url: "../controladores/ControladorModelo.php",
         data: datos,
         success: function (datos) {
-            alert(datos);
+            //alert(datos);
         }
     });
 
@@ -67,6 +67,8 @@ function CerrarModalModelo() {
 function ResetModalModelo() {
     $('#ModalModelo').on('hidden.bs.modal', function () {
         $(this).find('form').trigger('reset');
+        $("#marca_automovil_modelo").removeClass("is-invalid");
+        $("#id_modelo").removeClass("is-invalid");
         $("#descripcion_modelo").removeClass("is-invalid");
     });
 }
@@ -95,12 +97,16 @@ $(document).on('click', '.modificar-datos-modelo', function () {
     r = valores;
     //alert(r);
     var id_modelo = r[0];
-    var descripcion = r[1];
-
+    var id_marca = r[1];
+    var descripcion = r[2];
+    var marca = CargarMarcaMdf(id_marca);
+    CargarMarcaAutomovil();
+    
     $("#modal-modelo-edit").text('Modificar Modelo');
     $("#id_modelo").val(id_modelo);
     $("#descripcion_modelo").val(descripcion);
-
+    $("#marca_automovil_modelo option:selected").text(marca);
+    $("#marca_automovil_modelo").removeAttr("required");
 
     $('.guardar').css('display', 'none');
     $(".modificar").css('display', 'block');
@@ -114,11 +120,36 @@ $(document).on('click', '.modificar-datos-modelo', function () {
 
 });
 
+function CargarMarcaMdf(dato) {
+    
+    valor = 10;
+    
+     $.ajax({
+        type: "POST",
+        async: false,
+        cache: false,
+        url: "../controladores/ControladorMarca.php",
+        data: "dato=" + dato,
+        success: function (datos) {
+            //alert(datos);
+            valor = datos;
+        }
+    });
+    
+    return valor;
+    
+}
+
 function ModificarDatosModelo() {
 
     //alert('hola');
-
+    
     var id_modelo = $("#id_modelo").val();
+    var marca = $(".valor:selected").text();
+    var del = "Marca";
+    var ren = "";
+    var tex_marca = marca.replace(del, ren);
+    var id_marca = dameIdMarca(tex_marca);
     var descripcion = $("#descripcion_modelo").val();
 
 
@@ -133,9 +164,9 @@ function ModificarDatosModelo() {
     }
 
 
-    var datos = "up_id=" + id_modelo + "&up_descripcion=" + descripcion;
+    var datos = "up_id=" + id_modelo + "&up_id_marca=" + id_marca + "&up_descripcion=" + descripcion;
 
-    //alert(datos);
+//    alert(datos);
 
     $.ajax({
         type: "POST",
@@ -144,7 +175,7 @@ function ModificarDatosModelo() {
         url: "../controladores/ControladorModelo.php",
         data: datos,
         success: function (datos) {
-            //alert(datos);
+//            alert(datos);
         }
     });
 
