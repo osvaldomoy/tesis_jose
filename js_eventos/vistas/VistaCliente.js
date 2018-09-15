@@ -76,7 +76,7 @@ function validarCliente() {
                 "<div style='display: flex; justify-content: flex-end;'>" +
                 "<button type='button' id='holas' class='btn btn-primary' style='margin-bottom: 10px;' onclick='CargaDatosTabla();'>Cargar servicio</button>" +
                 "</div>" +
-                "<h3>Total a pagar: <span class='total-a-pagar'>0</span></h3> <div class='contenido-otra-tabla'></div>" +
+                "<div class='contenido-otra-tabla'></div>" +
                 "<div class='mensaje-stock'></div>";
 
         //cargamos el html en el modal
@@ -182,6 +182,7 @@ function CargaDatosTabla() {
 
                 }
             });
+            alert(temp);
 
 
             var descripciones_stock = temp.split('-');
@@ -237,21 +238,13 @@ function CargaDatosTabla() {
 
     });
     tableDatos += "</tbody>" +
-            "</table>" +
+            " ";
             //cargamos los datos de la otra tabla
-
+    var total_info = "</table> <h3 style='width=100%; background-color: #333333; color : white;'>\n\
+                Total a pagar: <span class='total-a-pagar'>0</span></h3>";
     $(".contenido-otra-tabla").html(tableDatos);
+    contenido_stock += total_info;
     $(".mensaje-stock").html(contenido_stock);
-//    alert(total_insumo);
-//    alert(total);
-//    alert(total);
-//    alert(total);
-//    alert(total);
-//    alert(total);
-//    alert(total);
-//    alert(total);
-//    alert(total);
-//    alert(total);
     total += total_insumo;
 
 //hola
@@ -314,7 +307,7 @@ function GuardarClienteEspera() {
 
     $("td[class=columna_servicio]").each(function () {
 
-        var id_servicio = 'hola';
+        var id_servicio = '';
         var servicio = $(this).text();
 
         $.ajax({
@@ -337,13 +330,18 @@ function GuardarClienteEspera() {
         //alert('FECHA: '+valdate);
 
         //info += valdate+"\n";
-
+        
+        //total a pagar
+        var total = $('.total-a-pagar').text();
+        
         $.ajax({
             type: "POST",
             async: false,
             cache: false,
             url: "../controladores/ControladorTicket.php",
-            data: "codigo_cliente=" + id_cliente + "&codigo_servicio=" + id_servicio + "&fecha=" + valdate + "&modelo=",
+            data: "codigo_cliente=" + id_cliente + "&codigo_servicio=" + 
+                    id_servicio + "&fecha=" + valdate + "&total="+total +
+                    "&codigo_detalle_identidad=",
             error: function (prueba) {
                 alert("No guardado");
             },
