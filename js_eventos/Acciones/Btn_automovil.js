@@ -220,9 +220,9 @@ function ResetModalAutomovil() {
 
 //------------------------------------ MODIFICAR ---------------------------------------
 
-$(document).on('click', '.modificar-datos-modelo', function () {
+$(document).on('click', '.modificar-datos-automovil', function () {
 
-    //alert('hola');
+//    alert('hola');
     var r = [];
     var valores = [];
     var i = 0;
@@ -239,13 +239,18 @@ $(document).on('click', '.modificar-datos-modelo', function () {
     });
 
     r = valores;
-    //alert(r);
-    var id_modelo = r[0];
-    var descripcion = r[1];
+    alert(r);
+    var id_automovil = r[0];
+    var id_marca = r[1];
+    var id_modelo = r[2];
+    var anho = r[3];
 
-    $("#modal-modelo-edit").text('Modificar Modelo');
+    $("#modal-automovil-edit").text('Modificar Automovil');
     $("#id_modelo").val(id_modelo);
-    $("#descripcion_modelo").val(descripcion);
+    $("#id_automovil").val(id_automovil);
+    $("#id_marca").val(id_automovil);
+    $("#id_automovil").val(id_automovil);
+    $("#id_automovil").val(id_automovil);
 
 
     $('.guardar').css('display', 'none');
@@ -256,49 +261,49 @@ $(document).on('click', '.modificar-datos-modelo', function () {
     /*$("#ModalUsuario").on('shown.bs.modal', function(){
      $("#nombre_usuario").focus();
      });*/
-
-
+//
+//
 });
+//
+//function ModificarDatosModelo() {
+//
+//    //alert('hola');
+//
+//    var id_modelo = $("#id_modelo").val();
+//    var descripcion = $("#descripcion_modelo").val();
+//
+//
+//    if (descripcion.length < 1) {
+//        $("#descripcion_modelo").focus();
+//        $("#descripcion_modelo").addClass("is-invalid");
+//
+//        $("#descripcion_modelo").keypress(function () {
+//            $("#descripcion_modelo").removeClass("is-invalid");
+//        });
+//        return;
+//    }
+//
+//
+//    var datos = "up_id=" + id_modelo + "&up_descripcion=" + descripcion;
+//
+//    //alert(datos);
+//
+//    $.ajax({
+//        type: "POST",
+//        async: false,
+//        cache: false,
+//        url: "../controladores/ControladorModelo.php",
+//        data: datos,
+//        success: function (datos) {
+//            //alert(datos);
+//        }
+//    });
+//
+//    MostrarListaModelos();
+//    CerrarModalModelo();
+//    ResetModalModelo();
 
-function ModificarDatosModelo() {
-
-    //alert('hola');
-
-    var id_modelo = $("#id_modelo").val();
-    var descripcion = $("#descripcion_modelo").val();
-
-
-    if (descripcion.length < 1) {
-        $("#descripcion_modelo").focus();
-        $("#descripcion_modelo").addClass("is-invalid");
-
-        $("#descripcion_modelo").keypress(function () {
-            $("#descripcion_modelo").removeClass("is-invalid");
-        });
-        return;
-    }
-
-
-    var datos = "up_id=" + id_modelo + "&up_descripcion=" + descripcion;
-
-    //alert(datos);
-
-    $.ajax({
-        type: "POST",
-        async: false,
-        cache: false,
-        url: "../controladores/ControladorModelo.php",
-        data: datos,
-        success: function (datos) {
-            //alert(datos);
-        }
-    });
-
-    MostrarListaModelos();
-    CerrarModalModelo();
-    ResetModalModelo();
-
-}
+//}
 
 
 //---------------------------------------- ELIMINAR DATOS DEL USUARIO --------------------------------------------
