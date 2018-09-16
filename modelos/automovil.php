@@ -44,6 +44,15 @@
 			$this->id_marca = $id_marca;
 			
 		}
+                
+		function __construct4($id_automovil, $id_modelo, $anho, $id_marca){
+			
+			$this->id_automovil = $id_automovil;
+			$this->id_modelo = $id_modelo;
+			$this->anho = $anho;
+			$this->id_marca = $id_marca;
+			
+		}
 		
 		//----------gets-----------------//
 		

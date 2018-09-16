@@ -2,6 +2,7 @@
 
 $(document).on('click', '#btn-anhadir-automovil', function() {
     
+    //$("#modelo_automovil").attr("required");
     $("#marca_automovil").change(function() {
         
         var marca = $("#marca_automovil").val();
@@ -12,7 +13,6 @@ $(document).on('click', '#btn-anhadir-automovil', function() {
     });
     
     CargarMarcaAutomovil();
-    CargarModeloAutomovil();
     AnhoAutomovil();
     
 });
@@ -24,7 +24,6 @@ function GuardarDatosAutomovil() {
     var modelo = $("#modelo_automovil").val();
     var id_modelo = dameIdModelo(modelo);
     var anho = $("#anho_automovil").val();
-    
     
     if (marca == null) {
         $("#marca_automovil").focus();
@@ -46,7 +45,7 @@ function GuardarDatosAutomovil() {
         return;
     }
     
-    if (anho == "") {
+    if (anho == null) {
         $("#anho_automovil").focus();
         $("#anho_automovil").addClass("is-invalid");
 
@@ -97,6 +96,24 @@ function CargarIdModeloPorIdMarca(modelo_n) {
     $("#modelo_automovil").html(contenido);
 }
 
+function CargarIdModeloPorIdMarca2(modelo_n_2) {
+    
+    var contenido = "";
+
+    $.ajax({
+        type: "POST",
+        async: false,
+        cache: false,
+        url: "../controladores/ControladorModelo.php",
+        data: "id_mara_modelo2=" +modelo_n_2,
+        success: function (datos) {
+            contenido += datos;
+        }
+    });
+    
+    $("#modelo_automovil").html(contenido);
+}
+
 
 // CARGAR MARCA DE AUTOMOVIL EN EL SELECT
 
@@ -138,26 +155,6 @@ function dameIdMarca(nombre) {
     return valor;
 }
 
-// CARGAR MODELO DE AUTOMOVIL EN EL SELECT
-
-function CargarModeloAutomovil() {
-
-    var contenido = "";
-
-    $.ajax({
-        type: "POST",
-        async: false,
-        cache: false,
-        url: "../controladores/ControladorModelo.php",
-        data: "modelo=1",
-        success: function (datos) {
-            contenido += datos;
-        }
-    });
-    
-    $("#modelo_automovil").html(contenido);
-}
-
 //OBTENER ID DE MODELO
 
 function dameIdModelo(nombre) {
@@ -181,7 +178,7 @@ function dameIdModelo(nombre) {
 
 function AnhoAutomovil() {
     
-    var contenido = "<option value=''>Año</option>";
+    var contenido = "<option value='' disabled selected>Año</option>";
     
     var d = new Date();
     var anho = d.getFullYear();
@@ -212,8 +209,14 @@ function ResetModalAutomovil() {
     $('#ModalAutomovil').on('hidden.bs.modal', function () {
         $(this).find('form').trigger('reset');
         $("#id_automovil").removeClass("is-invalid");
-        $("#id_marca").removeClass("is-invalid");
-        $("#id_modelo").removeClass("is-invalid");
+        $("#marca_automovil").removeClass("is-invalid");
+        $("#marca_automovil").attr("required");
+        $("#marca_automovil").attr("disabled selected");
+        $("#modelo_automovil").removeClass("is-invalid");
+        $("#anho_automovil").removeClass("is-invalid");
+        contenido = "<option class='valor' value='' disabled selected>Modelo</option>";
+        $("#modelo_automovil").html(contenido);
+        $("#modelo_automovil").attr("required");
     });
 }
 
@@ -239,24 +242,39 @@ $(document).on('click', '.modificar-datos-automovil', function () {
     });
 
     r = valores;
-    alert(r);
+    //alert(r);
     var id_automovil = r[0];
-    var id_marca = r[1];
-    var id_modelo = r[2];
+    var descripcion_marca = r[1];
+    var descripcion_modelo = r[2];
     var anho = r[3];
-
+    CargarMarcaAutomovil();
+    var id_marca = dameIdMarca(descripcion_marca);
+    CargarIdModeloPorIdMarca2(id_marca);
+    AnhoAutomovil();
+      
     $("#modal-automovil-edit").text('Modificar Automovil');
-    $("#id_modelo").val(id_modelo);
     $("#id_automovil").val(id_automovil);
-    $("#id_marca").val(id_automovil);
-    $("#id_automovil").val(id_automovil);
-    $("#id_automovil").val(id_automovil);
+    $("#marca_automovil option:selected").text(descripcion_marca);
+    $("#marca_automovil").removeAttr("required");
+    $("#modelo_automovil").attr("disabled selected");
+    $("#modelo_automovil option:selected").text(descripcion_modelo);
+    $("#modelo_automovil").removeAttr("required");
+    $("#anho_automovil option:selected").text(anho);
+    $("#anho_automovil").removeAttr("required");
+    
+    $("#marca_automovil").change(function() {
+        
+        var marca = $("#marca_automovil").val();
+        var id_marca = dameIdMarca(marca);
 
-
+        CargarIdModeloPorIdMarca(id_marca);
+        
+    });
+    
     $('.guardar').css('display', 'none');
     $(".modificar").css('display', 'block');
 
-    $("#ModalModelo").modal('show');
+    $("#ModalAutomovil").modal('show');
 
     /*$("#ModalUsuario").on('shown.bs.modal', function(){
      $("#nombre_usuario").focus();
@@ -264,51 +282,70 @@ $(document).on('click', '.modificar-datos-automovil', function () {
 //
 //
 });
-//
-//function ModificarDatosModelo() {
-//
-//    //alert('hola');
-//
-//    var id_modelo = $("#id_modelo").val();
-//    var descripcion = $("#descripcion_modelo").val();
-//
-//
-//    if (descripcion.length < 1) {
-//        $("#descripcion_modelo").focus();
-//        $("#descripcion_modelo").addClass("is-invalid");
-//
-//        $("#descripcion_modelo").keypress(function () {
-//            $("#descripcion_modelo").removeClass("is-invalid");
-//        });
-//        return;
-//    }
-//
-//
-//    var datos = "up_id=" + id_modelo + "&up_descripcion=" + descripcion;
-//
-//    //alert(datos);
-//
-//    $.ajax({
-//        type: "POST",
-//        async: false,
-//        cache: false,
-//        url: "../controladores/ControladorModelo.php",
-//        data: datos,
-//        success: function (datos) {
-//            //alert(datos);
-//        }
-//    });
-//
-//    MostrarListaModelos();
-//    CerrarModalModelo();
-//    ResetModalModelo();
 
-//}
+// CARGAR MODELO POR ID_MODELO
+function CargarModeloMdf(dato) {
+    
+    valor = 10;
+    
+     $.ajax({
+        type: "POST",
+        async: false,
+        cache: false,
+        url: "../controladores/ControladorModelo.php",
+        data: "dato=" + dato,
+        success: function (datos) {
+            //alert(datos);
+            valor = datos;
+        }
+    });
+    
+    return valor;
+    
+}
+ 
+
+function ModificarDatosAutomovil() {
+
+//    alert('hola');
+
+    var id_automovil = $("#id_automovil").val();
+    var descripcion_marca = $("#marca_automovil option:selected").text();
+    var id_marca = dameIdMarca(descripcion_marca);
+    var descripcion_modelo = $("#modelo_automovil option:selected").text();
+    var id_modelo = dameIdModelo(descripcion_modelo);
+    var anho_automovil = $("#anho_automovil option:selected").text();
+
+    //alert(id_automovil + " " + id_marca + " " + id_modelo + " " + anho_automovil);
+    
+    
+
+    var datos = "up_id=" + id_automovil + "&up_id_marca=" + id_marca + "&up_id_modelo=" + id_modelo
+    + "&up_anho=" + anho_automovil;
+
+    //alert(datos);
+
+    $.ajax({
+        type: "POST",
+        async: false,
+        cache: false,
+        url: "../controladores/ControladorAutomovil.php",
+        data: datos,
+        success: function (datos) {
+            //alert(datos);
+        }
+    });
+
+    MostrarListaAutomoviles();
+    CerrarModalAutomovil();
+    ResetModalAutomovil();
+
+}
 
 
-//---------------------------------------- ELIMINAR DATOS DEL USUARIO --------------------------------------------
+//---------------------------------------- ELIMINAR --------------------------------------------
 
-$(document).on('click', '.eliminar-datos-modelo', function () {
+$(document).on('click', '.eliminar-datos-automovil', function () {
 
     var r = [];
     var valores = [];
@@ -326,47 +363,46 @@ $(document).on('click', '.eliminar-datos-modelo', function () {
     });
 
     r = valores;
-//	alert(r);
+    //alert(r);
 
-    var id_modelo = r[0];
-    var descripcion = r[1];
+    var id_automovil = r[0];
 
 
-    $('#id_modelo_delete').val(id_modelo);
-    $('#ModalEliminarModelo').modal('show');
+    $('#id_automovil_delete').val(id_automovil);
+    $('#ModalEliminarAutomovil').modal('show');
 
 });
 
-function EliminarDatosModelo() {
+function EliminarDatosAutomovil() {
 
-//	alert('hola');
+    //alert('hola');
 
-    var id_modelo = $("#id_modelo_delete").val();
+    var id_automovil = $("#id_automovil_delete").val();
 
-    var datos = "id_delete=" + id_modelo;
+    var datos = "id_delete=" + id_automovil;
 
-//	alert(datos);
+    //alert(datos);
 
     $.ajax({
         type: "POST",
         async: false,
         cache: false,
-        url: "../controladores/ControladorModelo.php",
+        url: "../controladores/ControladorAutomovil.php",
         data: datos,
         success: function (datos) {
             //alert(datos);
         }
     });
 
-    MostrarListaModelos();
+    MostrarListaAutomoviles();
 
-    $('#ModalEliminarModelo').modal('hide');
+    $('#ModalEliminarAutomovil').modal('hide');
     if ($('.modal-backdrop').is(':visible')) {
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
     }
 
-    ResetModalModelo();
+    ResetModalAutomovil();
 
 }
 

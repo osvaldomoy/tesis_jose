@@ -139,7 +139,8 @@ function dameMarca() {
     require_once "../conexion/conexion.php";
     $conexion = new Conexion();
     $conexion->iniciarSesion();
-    $consulta = mysqli_query($conexion->dameConexion(), "SELECT descripcion FROM marca WHERE activo = 1");
+    $consulta = mysqli_query($conexion->dameConexion(), "SELECT descripcion FROM marca WHERE activo = 1 "
+            . "ORDER BY descripcion ASC");
 
     if (mysqli_num_rows($consulta) > 0) {
         echo "<option class='valor' value='' disabled selected>Marca</option>";

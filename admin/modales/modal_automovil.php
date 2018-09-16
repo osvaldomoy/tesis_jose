@@ -20,7 +20,7 @@
 			  </div>
 			  <div class="col-sm">
                                   <select id="modelo_automovil" class="form-control form-control-sm" required>
-                                      
+                                      <option class='valor' value='' disabled selected>Modelo</option>
                                   </select>
 				<!--<small id="emailHelp" class="form-text text-muted">Campo requerido.</small>-->
 			  </div>

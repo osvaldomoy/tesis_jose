@@ -145,7 +145,8 @@ function dameModelo() {
     require_once "../conexion/conexion.php";
     $conexion = new Conexion();
     $conexion->iniciarSesion();
-    $consulta = mysqli_query($conexion->dameConexion(), "SELECT descripcion FROM modelo WHERE activo = 1");
+    $consulta = mysqli_query($conexion->dameConexion(), "SELECT descripcion FROM modelo WHERE activo = 1"
+            . "ORDER BY descripcion ASC");
 
     if (mysqli_num_rows($consulta) > 0) {
         echo "<option value='' disabled selected>Modelo</option>";
@@ -185,6 +186,7 @@ function dameIdModelo($nombre) {
         echo "No hay datos";
     }
 }
+
 //----------------------- OBTENER ID MODELO POR EL ID MARCA -------------------------------------
 
 if (isset($_POST["id_mara_modelo"])) {
@@ -192,20 +194,77 @@ if (isset($_POST["id_mara_modelo"])) {
 }
 
 if (!empty($modelo_n)) {
-    dameIdModeloN($modelo_n);
+    dameIdModeloMN($modelo_n);
 }
 
-function dameIdModeloN($modelo_n) {
+function dameIdModeloMN($modelo_n) {
 
     require_once "../conexion/conexion.php";
     $conexion = new Conexion();
     $conexion->iniciarSesion();
     $consulta = mysqli_query($conexion->dameConexion(), "SELECT descripcion FROM modelo "
-            . "WHERE id_marca = '" . $modelo_n . "'");
+            . "WHERE id_marca = '" . $modelo_n . "'"
+            . "ORDER BY descripcion ASC");
 
     if (mysqli_num_rows($consulta) > 0) {
         while ($row = mysqli_fetch_array($consulta)) {
             echo "<option>" . $row[0] . "</option>";
+        }
+    } else {
+        echo "No hay datos";
+    }
+}
+
+//----------------------- OBTENER ID MODELO POR EL ID MARCA 2-------------------------------------
+
+if (isset($_POST["id_mara_modelo2"])) {
+    $modelo_n2 = $_POST["id_mara_modelo2"];
+}
+
+if (!empty($modelo_n2)) {
+    dameIdModeloN($modelo_n2);
+}
+
+function dameIdModeloN($modelo_n2) {
+
+    require_once "../conexion/conexion.php";
+    $conexion = new Conexion();
+    $conexion->iniciarSesion();
+    $consulta = mysqli_query($conexion->dameConexion(), "SELECT descripcion FROM modelo "
+            . "WHERE id_marca = '" . $modelo_n2 . "'"
+            . "ORDER BY descripcion ASC");
+
+    if (mysqli_num_rows($consulta) > 0) {
+        echo "<option class='valor' value='' disabled selected>Modelo</option>";
+        while ($row = mysqli_fetch_array($consulta)) {
+            echo "<option>" . $row[0] . "</option>";
+        }
+    } else {
+        echo "No hay datos";
+    }
+}
+
+//----------------------- MOSTRAR NOMBRE MODELO-------------------------------------
+
+if (isset($_POST["dato"])) {
+    $dato = $_POST["dato"];
+}
+
+if (!empty($dato)) {
+    dameDescripcionModelo($dato);
+}
+
+function  dameDescripcionModelo($dato) {
+
+    require_once "../conexion/conexion.php";
+    $conexion = new Conexion();
+    $conexion->iniciarSesion();
+    $consulta = mysqli_query($conexion->dameConexion(), "SELECT descripcion FROM modelo WHERE id_modelo = "
+            ." ". $dato ." AND activo = 1");
+
+    if (mysqli_num_rows($consulta) > 0) {
+        while ($row = mysqli_fetch_array($consulta)) {
+            echo $row[0];
         }
     } else {
         echo "No hay datos";

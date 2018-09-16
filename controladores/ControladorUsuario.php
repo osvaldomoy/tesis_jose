@@ -66,8 +66,8 @@ function GuardarDatosUsuario($guardarUsuario) {
 
     $sql = "INSERT INTO usuarios (nombre, apellido, usuario, pass, id_tipo_de_usuario, activo) VALUES ('"
             . $guardarUsuario->getNombre() . "','"
-            . $guardarUsuario->getApellido() . "',"
-            . $guardarUsuario->getUsuario() . ",'"
+            . $guardarUsuario->getApellido() . "','"
+            . $guardarUsuario->getUsuario() . "','"
             . $guardarUsuario->getPass() . "',"
             . $guardarUsuario->getIdTipoUsuario() . ",1)";
 
@@ -178,13 +178,10 @@ function validar($usuario, $pass) {
                 return;
             }
         }
-    } else {
-        echo 1;
     }
 }
 
-//-------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------
+
 //-------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------
 

@@ -18,7 +18,7 @@ function dameTodoAuto() {
             . " a.anho FROM automovil a "
             . "JOIN marca mr ON mr.id_marca = a.id_marca "
             . "JOIN modelo md ON md.id_modelo = a.id_modelo "
-            . "WHERE a.activo = 1");
+            . "WHERE a.activo = 1 ORDER BY a.id_automovil ASC");
 
     $cont = 1;
     if (mysqli_num_rows($consulta) > 0) {
@@ -59,9 +59,8 @@ if (isset($_POST["id_marca"]) and isset($_POST["id_modelo"]) and isset($_POST["a
     $guardarAutomovil = new Automovil($id_modelo, $anho, $id_marca);
 }
 
-$prueba = 'hola';
 
-if (!empty($prueba)) {
+if (!empty($guardarAutomovil)) {
     GuardarDatosAutomovil($guardarAutomovil);
 }
 
@@ -72,6 +71,72 @@ function GuardarDatosAutomovil($guardarAutomovil) {
             . $guardarAutomovil->getIdModelo() . ", "
             . $guardarAutomovil->getAnho() . ", "
             . "1)";
+
+    echo $sql;
+
+    $conexion = new Conexion();
+    $conexion->iniciarSesion();
+    $conexion->dameConexion()->query($sql);
+}
+
+
+//------------------------------- MODIFICAR DATOS AUTOMOVIL -----------------------------------
+
+
+require_once("../conexion/conexion.php");
+require_once("../modelos/automovil.php");
+
+
+if (isset($_POST["up_id"]) and isset($_POST["up_id_marca"]) and isset($_POST["up_id_modelo"])
+        and isset($_POST["up_anho"])) {
+
+    $id_automovil = $_POST["up_id"];
+    $id_marca = $_POST["up_id_marca"];
+    $id_modelo = $_POST["up_id_modelo"];
+    $anho = $_POST["up_anho"];
+
+    $modificarAutomovil = new Automovil($id_automovil, $id_modelo, $anho, $id_marca);
+}
+
+if (!empty($modificarAutomovil)) {
+    ModificarDatosAutomovil($modificarAutomovil);
+}
+
+function ModificarDatosAutomovil($modificarAutomovil) {
+
+     $sql = "UPDATE automovil SET "
+            . "id_marca=" . $modificarAutomovil->getIdMarca() . ","
+            . "id_modelo=" . $modificarAutomovil->getIdModelo() . ","
+            . "anho=" . $modificarAutomovil->getAnho() . ""
+            . " WHERE id_automovil = " . $modificarAutomovil->getIdAutomovil() . "";
+
+    echo $sql;
+
+    $conexion = new Conexion();
+    $conexion->iniciarSesion();
+    $conexion->dameConexion()->query($sql);
+}
+
+//------------------------------ ELIMINAR DATOS AUTOMOVIL -------------------------------------
+
+require_once("../conexion/conexion.php");
+require_once("../modelos/automovil.php");
+
+if (isset($_POST["id_delete"])) {
+
+    $delete_id_automovil = $_POST["id_delete"];
+
+    $borrarAutomovil = new Automovil($delete_id_automovil);
+}
+
+if (!empty($borrarAutomovil)) {
+
+    BorrarDatosAutomovil($borrarAutomovil);
+}
+
+function BorrarDatosAutomovil($borrarAutomovil) {
+
+    $sql = "DELETE FROM automovil WHERE id_automovil = " . $borrarAutomovil->getIdAutomovil() . "";
 
     echo $sql;
 

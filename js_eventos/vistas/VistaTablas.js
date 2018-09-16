@@ -233,7 +233,6 @@ function MostrarListaModelos(){
 		data: "lista=123",
 		
 		success: function(datos) {
-			
 			contenido += datos;
 		}
 	});

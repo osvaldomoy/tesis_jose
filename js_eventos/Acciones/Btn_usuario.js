@@ -74,6 +74,8 @@ function GuardarDatosUsuario(){
 	
 	var datos = "nombre="+nombre+"&apellido="+apellido+"&usuario="+usuario+"&pass="+password+"&tipo_usuario="+tipo_usuario;
 	
+        //alert(datos);
+        
 	$.ajax({
 		type: "POST",
 		async: false,
@@ -81,7 +83,7 @@ function GuardarDatosUsuario(){
 		url: "../controladores/ControladorUsuario.php",
 		data: datos,
 		success: function(datos) {
-			
+                    //alert(datos);
 		}
 	});
 	
@@ -122,7 +124,7 @@ function dameIdTipoUsuario(nombre){
         url: "../controladores/ControladorTipoUsuario.php",
         data: "nombre="+nombre,
         success: function(datos) {
-             
+             valor = datos;
         }
     });
 	
