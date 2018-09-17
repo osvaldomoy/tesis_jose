@@ -82,10 +82,10 @@
 
 
 
-                <div class="card-body">
+                     <div class="card-body" style="padding: 0">
                     <!--Contenedor Menú-->
 
-                    <div class="container" style="margin: 20px auto 50px auto;">
+                    <div class="container" style="margin: 20px auto 50px auto; max-width: 100%">
                         <div class="row">
                             <div class="col-sm">
                                 <button class="btn btn-primary btn-menu" type="submit" onClick="MostrarMenuClientes();">
@@ -103,6 +103,12 @@
                                 <button class="btn btn-primary btn-menu" type="submit" onClick="MostrarMenuAutomoviles();">
                                     <div class="menu-icon"><h1><i class="fas fa-car"></i></h1></div>
                                     <div class="menu-text">Automóvil</div>
+                                </button>
+                            </div>
+                            <div class="col-sm">
+                                <button class="btn btn-primary btn-menu" type="submit" onClick="MostrarMenuClientesAutomoviles();">
+                                    <div class="menu-icon"><h1><i class="fas fa-user"></i></h1></div>
+                                    <div class="menu-text">Cliente - <br>Automóvil</div>
                                 </button>
                             </div>
                             <div class="col-sm">
