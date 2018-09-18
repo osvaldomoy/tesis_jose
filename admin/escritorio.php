@@ -13,6 +13,7 @@
         <script src="../js_eventos/Acciones/Btn_cliente.js"></script>
         <script src="../js_eventos/Acciones/Btn_usuario.js"></script>
         <script src="../js_eventos/Acciones/Btn_automovil.js"></script>
+        <script src="../js_eventos/Acciones/Btn_cliente_automovil.js"></script>
         <script src="../js_eventos/Acciones/Btn_marca.js"></script>
         <script src="../js_eventos/Acciones/Btn_modelo.js"></script>
         <script src="../js_eventos/Acciones/Btn_servicio.js"></script>
@@ -155,6 +156,9 @@
 
                     //Llamada a Modal Automovil
                     require_once("modales/modal_automovil.php");
+                    
+                    //Llamada a Modal Cliente - Automovil
+                    require_once("modales/modal_cliente_automovil.php");
 
                     //Llamada a Modal Marca
                     require_once("modales/modal_marca.php");

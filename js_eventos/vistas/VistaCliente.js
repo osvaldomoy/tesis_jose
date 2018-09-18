@@ -177,7 +177,7 @@ function CargaDatosTabla() {
                 data: "modelo=" + d2 + "&marca=" + d3 + "&servicio=" + servicio,
 
                 success: function (datos) {
-                    
+
                     temp += datos.trim();
 
                 }
@@ -190,7 +190,7 @@ function CargaDatosTabla() {
             contenido_stock += "<ul>";
 
             for (var i = 0; i < descripciones_stock.length - 1; i++) {
-                
+
                 contenido_stock += "<li>" + descripciones_stock[i].split(',')[0] + " <b>Cantidad </b>" + descripciones_stock[i].split(',')[1] + "</li>";
 
 
@@ -223,7 +223,7 @@ function CargaDatosTabla() {
                 data: "nombre_precio=" + servicio,
 
                 success: function (datos) {
-                    
+
                     total += parseInt(datos);
                 }
             });
@@ -239,7 +239,7 @@ function CargaDatosTabla() {
     });
     tableDatos += "</tbody>" +
             " ";
-            //cargamos los datos de la otra tabla
+    //cargamos los datos de la otra tabla
     var total_info = "</table> <h3 style='width=100%; background-color: #333333; color : white;'>\n\
                 Total a pagar: <span class='total-a-pagar'>0</span></h3>";
     $(".contenido-otra-tabla").html(tableDatos);
@@ -261,8 +261,10 @@ function CargaDatosTabla() {
  * 
  */
 function formatNumber(num) {
-    if (!num || num == 'NaN') return '-';
-    if (num == 'Infinity') return '&#x221e;';
+    if (!num || num == 'NaN')
+        return '-';
+    if (num == 'Infinity')
+        return '&#x221e;';
     num = num.toString().replace(/\$|\,/g, '');
     if (isNaN(num))
         num = "0";
@@ -272,7 +274,7 @@ function formatNumber(num) {
     num = Math.floor(num / 100).toString();
 //    if (cents < 0)
 //        cents = "0" + cents;
-    for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3) ; i++)
+    for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++)
         num = num.substring(0, num.length - (4 * i + 3)) + '.' + num.substring(num.length - (4 * i + 3));
     return (((sign) ? '' : '-') + num);
 //    return (((sign) ? '' : '-') + num + ',' + cents);
@@ -330,17 +332,17 @@ function GuardarClienteEspera() {
         //alert('FECHA: '+valdate);
 
         //info += valdate+"\n";
-        
+
         //total a pagar
         var total = $('.total-a-pagar').text();
-        
+
         $.ajax({
             type: "POST",
             async: false,
             cache: false,
             url: "../controladores/ControladorTicket.php",
-            data: "codigo_cliente=" + id_cliente + "&codigo_servicio=" + 
-                    id_servicio + "&fecha=" + valdate + "&total="+total +
+            data: "codigo_cliente=" + id_cliente + "&codigo_servicio=" +
+                    id_servicio + "&fecha=" + valdate + "&total=" + total +
                     "&codigo_detalle_identidad=",
             error: function (prueba) {
                 alert("No guardado");
