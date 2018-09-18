@@ -16,6 +16,7 @@ function MostrarMenuClientes() {
 
     $("#contenedor-tablas").html(contenido);
     MostrarListaClientes();
+    
 
 }
 
@@ -360,6 +361,7 @@ function MostrarMenuInsumos() {
 }
 
 function MostrarListaInsumos() {
+   
 
     var contenido = "<thead class='thead-dark'>" +
             "<tr>" +
@@ -386,15 +388,6 @@ function MostrarListaInsumos() {
     $("#lista-insumo").html(contenido);
 
 }
-
-
-
-
-
-
-
-
-
 
 
 

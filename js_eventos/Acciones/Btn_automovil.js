@@ -2,7 +2,6 @@
 
 $(document).on('click', '#btn-anhadir-automovil', function() {
     
-    //$("#modelo_automovil").attr("required");
     $("#marca_automovil").change(function() {
         
         var marca = $("#marca_automovil").val();
@@ -14,6 +13,7 @@ $(document).on('click', '#btn-anhadir-automovil', function() {
     
     CargarMarcaAutomovil();
     AnhoAutomovil();
+    ResetModalAutomovil();
     
 });
 
@@ -210,13 +210,13 @@ function ResetModalAutomovil() {
         $(this).find('form').trigger('reset');
         $("#id_automovil").removeClass("is-invalid");
         $("#marca_automovil").removeClass("is-invalid");
-        $("#marca_automovil").attr("required");
+        $("#marca_automovil").attr("required", "required");
         $("#marca_automovil").attr("disabled selected");
         $("#modelo_automovil").removeClass("is-invalid");
         $("#anho_automovil").removeClass("is-invalid");
         contenido = "<option class='valor' value='' disabled selected>Modelo</option>";
         $("#modelo_automovil").html(contenido);
-        $("#modelo_automovil").attr("required");
+        $("#modelo_automovil").attr("required", "required");
     });
 }
 

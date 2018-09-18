@@ -1,4 +1,10 @@
 //------------------------- AÑADIR --------------------------------------
+$(document).on("click", "#btn-anhadir-cliente", function() {
+    
+    ResetModal();
+    
+});
+
 
 function BorrarModificarEliminar() {
     $('.guardar').css('display', 'block');

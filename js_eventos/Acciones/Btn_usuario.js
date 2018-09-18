@@ -2,6 +2,7 @@
 
 $(document).on('click', '#btn_new_usuario', function () {
     DameListaTiposUsuarios();
+    ResetModalUsuario();
 });
 
 function DameListaTiposUsuarios() {

@@ -18,6 +18,7 @@
         <script src="../js_eventos/Acciones/Btn_modelo.js"></script>
         <script src="../js_eventos/Acciones/Btn_servicio.js"></script>
         <script src="../js_eventos/Acciones/Btn_insumo.js"></script>
+        <script src="../js_eventos/Acciones/Busquedas/busca_insumo.js"></script>
         <link rel="stylesheet" href="../fontawesome-free-5.0.13/web-fonts-with-css/css/fontawesome-all.css">
         <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
         <style>
