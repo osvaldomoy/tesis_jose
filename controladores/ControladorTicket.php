@@ -42,6 +42,66 @@
 	}
 
 
+//-------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------
+	if(isset($_POST['modelo']) and (isset($_POST['marc'])) 
+                and (isset($_POST['servicio'])) and (isset($_POST['iden']))  
+	 ){
+		
+		
+		$servicio = $_POST['servicio'];
+		$marca = $_POST['marc'];
+		$modelo = $_POST['modelo'];
+		
+		dameIdentificadorServicio($modelo, $marca, $servicio);
+		
+	}
+
+	
+
+	function dameIdentificadorServicio($modelo, $marca, $servicio){
+		
+		require_once "../conexion/conexion.php";
+		$conexion = new Conexion();
+		$conexion->iniciarSesion();
+		$codigo_identidad;
+		$consulta = mysqli_query($conexion->dameConexion(), "SELECT dsi.codigo_detalle_identidad 
+		FROM detalle_servicio_insumo dsi 
+		JOIN automovil au 
+		ON au.id_automovil = dsi.codigo_automovil
+		JOIN servicios s 
+		ON s.codigo_servicio = dsi.codigo_servicio
+		JOIN modelo m 
+		ON m.id_modelo = au.id_modelo
+		JOIN marca mar 
+		ON mar.id_marca  = au.id_marca
+		WHERE m.descripcion LIKE '".$modelo."' AND  mar.descripcion LIKE '".$marca."' AND s.descripcion LIKE '".$servicio."' LIMIT 1");
+
+		$identidad_descripcion = "";
+		if (mysqli_num_rows($consulta) > 0){
+			
+			 while($row = mysqli_fetch_array($consulta)){
+				echo  $row[0];
+			 }
+			
+			 
+		}else{
+			echo "NPI";
+		}
+		
+		
+		
+		
+		
+	}
+        
+        
+        //----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------
 	if(isset($_POST['modelo']) and (isset($_POST['marca'])) and (isset($_POST['servicio'])) 
 	 ){
 		
@@ -50,13 +110,13 @@
 		$marca = $_POST['marca'];
 		$modelo = $_POST['modelo'];
 		
-		dameIdentidadInsumoServicio($modelo, $marca, $servicio);
+		dameCantidadNombre($modelo, $marca, $servicio);
 		
 	}
 
 	
 
-	function dameIdentidadInsumoServicio($modelo, $marca, $servicio){
+	function dameCantidadNombre($modelo, $marca, $servicio){
 		
 		require_once "../conexion/conexion.php";
 		$conexion = new Conexion();
@@ -107,6 +167,7 @@
 		
 		
 	}
+        
 
 
 ?>

@@ -105,7 +105,7 @@ function CargaDatosTabla() {
     var tableDatos = "";
     var total = 0;
     var total_insumo = 0;
-    tableDatos += "<table id='tabla2' class='table'>" +
+    tableDatos += "<table id='tabla2' class='table tabla-info-servicio'>" +
             "<thead class='thead-dark'>" +
             "<tr>" +
             "<th scope='col'>CHAPA</th>" +
@@ -145,10 +145,10 @@ function CargaDatosTabla() {
             var d3 = r[2];//marca
             var nada = 'hola';
             contenido_stock += "<h5>" + servicio + " - " + d2 + " - " + d3 + "</h5><hr>";
-            tableDatos += "<tr class='p'>" +
+            tableDatos += "<tr class='p columnas-servicio'>" +
                     "<th scope='row'>" + d1 + "</th>" +
-                    "<td>" + d2 + "</td>" +
-                    "<td>" + d3 + "</td>" +
+                    "<td >" + d2 + "</td>" +
+                    "<td >" + d3 + "</td>" +
                     "<td class='columna_servicio'>" + servicio + "</td>";
 
             $.ajax({
@@ -182,7 +182,7 @@ function CargaDatosTabla() {
 
                 }
             });
-            alert(temp);
+            
 
 
             var descripciones_stock = temp.split('-');
@@ -279,13 +279,31 @@ function formatNumber(num) {
 }
 
 //----------------------------- ENVIAR DATOS DE CLIENTE A LA TABLA CLIENTES_EN_EPSERA --------------------
+var valdate;
+   valdate = datecap.text = new Date().YYYYMMDDHHMMSS(); //fecha
+Object.defineProperty(Date.prototype, 'YYYYMMDDHHMMSS', {
+    	value: function() {
+			function pad2(n) {  // always returns a string
+				return (n < 10 ? '0' : '') + n;
+			}
 
+        	return this.getFullYear() +':'+ // OBTENER ANHO
+            pad2(this.getMonth() + 1) +':'+ // OBTENER MES
+            pad2(this.getDate()) +':'+ // OBTENER DIA
+            pad2(this.getHours()) +':'+ // OBTENER HORA
+            pad2(this.getMinutes()) +':'+ // OBTENER MINUTO
+            pad2(this.getSeconds()); // OBTENER SEGUNDO
+    	}
+			
+		});
+	
 
 function GuardarClienteEspera() {
-
+    
+    //obtiene la cedula del cliente para luego obtener su identidad
     var cedula = $('#cedula_cliente').val();
     var id_cliente = 0;
-    //var info = "";
+    var datecap = 1;
 
     $.ajax({
         type: "POST",
@@ -298,60 +316,151 @@ function GuardarClienteEspera() {
             //alert('CODIGO CLIENTE: '+id_cliente);
         }
     });
-    //info += id_cliente+"\n";
-    var datecap = 1;
+    
+    
+    
+    
+    
+    //recorremos las filas del servicio especificado
+    $('.columnas-servicio').each(function(){
+        //recorremos las columnas de la fila
+        var arreglo = [];
+        var i = 0;
+         $(this).children("td").each(function () {
+             
+             //obtenemos el id del servicio
+            arreglo[i] = $(this).text();
+            i++;
+            
+            
+         
+           });
+         
+      
+                 var id_servicio = 0;
+                    $.ajax({
+                        type: "POST",
+                        async: false,
+                        cache: false,
+                        url: "../controladores/ControladorServicio.php",
+                        data: "nombre=" + arreglo[2],
+                        success: function (datos) {
+                            id_servicio = datos; // codigo del servicio
+                            //alert('CODIGO SERVICIO: '+id_servicio);
+                        }
+                    });
+                 //obtenemos el identida de servicio
+                
+                    //obtenemos el id de servicio
+                 var identificador_servicio = "";
+                    $.ajax({
+                        type: "POST",
+                        async: false,
+                        cache: false,
+                        url: "../controladores/ControladorTicket.php",
+                        data: "modelo=" +arreglo[0]+"&marc="+arreglo[1]+"&servicio="+
+                                arreglo[2]+"&iden=123",
+                        success: function (datos) {
+
+                            identificador_servicio = datos; 
+
+                        }
+                    });
+
+                    alert(identificador_servicio);
 
 
-
-
-
-    $("td[class=columna_servicio]").each(function () {
-
-        var id_servicio = '';
-        var servicio = $(this).text();
-
-        $.ajax({
-            type: "POST",
-            async: false,
-            cache: false,
-            url: "../controladores/ControladorServicio.php",
-            data: "nombre=" + servicio,
-            success: function (datos) {
-                id_servicio = datos; // codigo del servicio
-                //alert('CODIGO SERVICIO: '+id_servicio);
-            }
-        });
-
-        //info += id_servicio+"\n";
-        //-------------------- OBTENER YYYY:MM:DD:HH:MM:SS ---------------------------------
-
-
-
-        //alert('FECHA: '+valdate);
-
-        //info += valdate+"\n";
+                    var total = $('.total-a-pagar').text();
+                    
+                    
+                   alert(valdate);
+//                $.ajax({
+//                        type: "POST",
+//                        async: false,
+//                        cache: false,
+//                        url: "../controladores/ControladorTicket.php",
+//                        data: "codigo_cliente=" + id_cliente + "&codigo_servicio=" + 
+//                                id_servicio + "&fecha=" + valdate + "&total="+total +
+//                                "&codigo_detalle_identidad=",
+//                        error: function (prueba) {
+//                            alert("No guardado");
+//                        },
+//                        success: function (datos) {
+//
+//                            alert("Datos guardados");
+//                        }
+//
+//
+//                });
+            });
+            
         
-        //total a pagar
-        var total = $('.total-a-pagar').text();
-        
-        $.ajax({
-            type: "POST",
-            async: false,
-            cache: false,
-            url: "../controladores/ControladorTicket.php",
-            data: "codigo_cliente=" + id_cliente + "&codigo_servicio=" + 
-                    id_servicio + "&fecha=" + valdate + "&total="+total +
-                    "&codigo_detalle_identidad=",
-            error: function (prueba) {
-                alert("No guardado");
-            },
-            success: function (datos) {
-
-                alert("Datos guardados");
-            }
-        });
-
-    });
+            
+  
+    
+    //obtiene la cedula del cliente para luego obtener su identidad
+//    var cedula = $('#cedula_cliente').val();
+//    var id_cliente = 0;
+//    
+//
+//    $.ajax({
+//        type: "POST",
+//        async: false,
+//        cache: false,
+//        url: "../controladores/ControladorCliente.php",
+//        data: "id=" + cedula,
+//        success: function (datos) {
+//            id_cliente = datos; // codigo del cliente
+//            //alert('CODIGO CLIENTE: '+id_cliente);
+//        }
+//    });
+//   
+//    var datecap = 1;
+//
+//
+//
+//
+//
+//    $("td[class=columna_servicio]").each(function () {
+//
+//        var id_servicio = '';
+//        var servicio = $(this).text();
+//
+//        $.ajax({
+//            type: "POST",
+//            async: false,
+//            cache: false,
+//            url: "../controladores/ControladorServicio.php",
+//            data: "nombre=" + servicio,
+//            success: function (datos) {
+//                id_servicio = datos; // codigo del servicio
+//                //alert('CODIGO SERVICIO: '+id_servicio);
+//            }
+//        });
+//
+//       
+//        //-------------------- OBTENER YYYY:MM:DD:HH:MM:SS ---------------------------------
+//
+//        var total = $('.total-a-pagar').text();
+//        
+//        $.ajax({
+//            type: "POST",
+//            async: false,
+//            cache: false,
+//            url: "../controladores/ControladorTicket.php",
+//            data: "codigo_cliente=" + id_cliente + "&codigo_servicio=" + 
+//                    id_servicio + "&fecha=" + valdate + "&total="+total +
+//                    "&codigo_detalle_identidad=",
+//            error: function (prueba) {
+//                alert("No guardado");
+//            },
+//            success: function (datos) {
+//
+//                alert("Datos guardados");
+//            }
+//        });
+//
+//    });
 
 }
 
