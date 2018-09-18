@@ -1,4 +1,5 @@
 <?php
+//------------------ LISTA DE INSUMOS -----------------------------------------
 
 if (isset($_POST["lista"])) {
     $datos = $_POST["lista"];
@@ -14,13 +15,67 @@ function dameTodoInsumos() {
     $conexion = new Conexion();
     $conexion->iniciarSesion();
     $consulta = mysqli_query($conexion->dameConexion(), "SELECT codigo_insumo, nombre, stock, stock_minimo,"
-            . "precio FROM insumos");
+            . "precio FROM insumos LIMIT 20");
 
     $cont = 1;
     if (mysqli_num_rows($consulta) > 0) {
         echo "<tbody>";
         while ($row = mysqli_fetch_array($consulta)) {
-            echo "<tr>";
+            if($row[2]<=$row[3]){
+                echo "<tr style='background-color: #ef6e6e;'>";
+            }
+            else{
+                echo "<tr>";
+            }
+            
+            echo "<th scope='row'>" . $cont . "</th>";
+            echo "<td class='fila' style='display: none;'>" . $row[0] . "</td>";
+            echo "<td class='fila'>" . $row[1] . "</td>";
+            echo "<td class='fila'>" . $row[2] . "</td>";
+            echo "<td class='fila'>" . $row[3] . "</td>";
+            echo "<td class='fila'>" . $row[4] . "</td>";
+            echo "<td style='display: flex; justify-content: space-around'>" .
+            "<button class='btn btn-success modificar-datos-insumo'>Modificar</button>"
+            . "<button class='btn btn-danger eliminar-datos-insumo'>Eliminar</button>"
+            . "</td>";
+            echo "</tr>";
+            $cont++;
+        }
+        echo "</tbody>";
+    } else {
+        echo "No hay datos";
+    }
+}
+
+//------------------ LISTA FILTRO DE INSUMOS-----------------------------------------
+
+if (isset($_POST["insumo"])) {
+    $datos_insumo = $_POST["insumo"];
+}
+
+if (!empty($datos_insumo)) {
+    dameFiltroInsumos($datos_insumo);
+}
+
+function dameFiltroInsumos($datos_insumo) {
+
+    require_once "../conexion/conexion.php";
+    $conexion = new Conexion();
+    $conexion->iniciarSesion();
+    $consulta = mysqli_query($conexion->dameConexion(), "SELECT codigo_insumo, nombre, stock, stock_minimo,"
+            . "precio FROM insumos WHERE nombre LIKE '" . $datos_insumo . "%' LIMIT 20");
+
+    $cont = 1;
+    if (mysqli_num_rows($consulta) > 0) {
+        echo "<tbody>";
+        while ($row = mysqli_fetch_array($consulta)) {
+            if($row[2]<=$row[3]){
+                echo "<tr style='background-color: #ef6e6e;'>";
+            }
+            else{
+                echo "<tr>";
+            }
+            
             echo "<th scope='row'>" . $cont . "</th>";
             echo "<td class='fila' style='display: none;'>" . $row[0] . "</td>";
             echo "<td class='fila'>" . $row[1] . "</td>";

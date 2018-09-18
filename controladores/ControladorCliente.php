@@ -42,6 +42,35 @@ function dameTodoCliente() {
     }
 }
 
+//------------------------ LISTA DE CLIENTES POR NOMBRE ----------------------------------------------------
+
+if (isset($_POST["lista_cliente"])) {
+    $datos_cliente = $_POST["lista_cliente"];
+}
+
+if (!empty($datos_cliente)) {
+    dameNombreCliente();
+}
+
+function dameNombreCliente() {
+
+    require_once "../conexion/conexion.php";
+    $conexion = new Conexion();
+    $conexion->iniciarSesion();
+    $consulta = mysqli_query($conexion->dameConexion(), "SELECT codigo_cliente, CONCAT(nombre, ' ',apellido) FROM clientes");
+
+    if (mysqli_num_rows($consulta) > 0) {
+        echo "<option class='valor' value='' disabled selected>Cliente</option>";
+        while ($row = mysqli_fetch_array($consulta)) {
+            echo "<option value='".$row[0]."'>".$row[1]."</option>";
+        }
+    } else {
+        echo "No hay datos";
+    }
+}
+
+
+
 //-----------------------------------------------------------------------------------------------
 //--------------------------------------- GUARDAR NUEVO CLIENTE ---------------------------------
 

@@ -43,6 +43,40 @@ function dameTodoAuto() {
     }
 }
 
+//----------------------------- CARGAR LOS AUTOMOVILES ------------------------
+if (isset($_POST["lista_auto"])) {
+    $datos_auto = $_POST["lista_auto"];
+}
+
+if (!empty($datos_auto)) {
+    dameNombreAuto();
+}
+
+function dameNombreAuto() {
+
+    require_once "../conexion/conexion.php";
+    $conexion = new Conexion();
+    $conexion->iniciarSesion();
+    $consulta = mysqli_query($conexion->dameConexion(), "SELECT id_automovil, CONCAT(mr.descripcion, ' ', md.descripcion, ' ', a.anho)
+FROM automovil a
+JOIN marca mr
+ON mr.id_marca = a.id_marca
+JOIN modelo md
+ON md.id_modelo = a.id_modelo
+WHERE a.activo = 1
+ORDER BY mr.descripcion ASC");
+    
+
+    if (mysqli_num_rows($consulta) > 0) {
+        echo "<option class='valor' value disabled selected>Automovil</option>";
+        while ($row = mysqli_fetch_array($consulta)) {
+            echo "<option value='".$row[0]."'>".$row[1]."</option>";
+        }
+    } else {
+        echo "No hay datos";
+    }
+}
+
 //------------------------------- GUARDAR DATOS AUTOMOVIL -----------------------------------
 
 

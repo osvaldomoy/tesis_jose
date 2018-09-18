@@ -40,13 +40,11 @@ function dameTodoMarca() {
 
 
 require_once("../conexion/conexion.php");
-//require_once("../modelos/marca.php");
 
 if (isset($_POST["descripcion"])) {
 
     $descripcion = $_POST["descripcion"];
 
-    //$guardarMarca = new Marca($descripcion);
 }
 
 if (!empty($descripcion)) {
