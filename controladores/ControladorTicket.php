@@ -14,24 +14,27 @@
 		$fecha = $_POST['fecha'];
 		$total = $_POST['total'];
 		$codigo_detalle_identidad = $_POST['codigo_detalle_identidad'];
-		
+		echo $codigo_detalle_identidad. $total. $fecha;
 		$guardarCliente = new ClientesEnEspera($codigo_cliente, $codigo_servicio, $fecha);
 	}
 
 	if(!empty($guardarCliente)){
 		
-		GuardarTurno($guardarCliente);
+		GuardarTurno($guardarCliente, $total, $codigo_detalle_identidad);
 	}
 
-	function GuardarTurno($guardarCliente){
+	function GuardarTurno($guardarCliente, $total, $codigo_detalle_identidad){
 		
 		
 		
-		$sql = "INSERT INTO clientes_en_espera (codigo_cliente, codigo_servicio, tiempo, fecha, estado, id_usuario) VALUES ("
+		$sql = "INSERT INTO clientes_en_espera (codigo_cliente, "
+                        . "codigo_servicio, tiempo, fecha, estado, "
+                        . "id_usuario, codigo_detalle_identidad, total) VALUES ("
             .$guardarCliente->getCodigoCliente().","
             .$guardarCliente->getCodigoServicio().", "
-			."(SELECT tiempo_servicio FROM servicios WHERE codigo_servicio = ".$guardarCliente->getCodigoServicio()."), '"
-            .$guardarCliente->getFecha()."', 'E', 0)";
+            ."(SELECT tiempo_servicio FROM servicios WHERE codigo_servicio = "
+            .$guardarCliente->getCodigoServicio()."), '"
+            .$guardarCliente->getFecha()."', 'E', 0,'".$codigo_detalle_identidad."', ".$total.")";
             
         echo $sql;
         
