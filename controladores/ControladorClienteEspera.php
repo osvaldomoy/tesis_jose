@@ -76,6 +76,21 @@ class ControladorClienteEspera{
                                     JOIN marca ma
                                     ON ma.id_marca = a.id_marca
                                      WHERE ce.estado LIKE '%E%' LIMIT 1");
+        $consulta2 = mysqli_query($conexion->dameConexion(), "SELECT  CONCAT(c.nombre, ' ', c.apellido), s.descripcion, m.descripcion, ma.descripcion, cau.chapa
+                                    FROM clientes_en_espera ce 
+                                    JOIN clientes c
+                                    ON c.codigo_cliente = ce.codigo_cliente 
+                                    JOIN servicios s 
+                                    ON s.codigo_servicio = ce.codigo_servicio
+                                    JOIN clientes_automoviles cau
+                                    ON cau.id_cliente = ce.codigo_cliente
+                                    JOIN automovil a 
+                                    ON a.id_automovil = cau.id_automovil
+                                    JOIN modelo m 
+                                    ON m.id_modelo = a.id_modelo
+                                    JOIN marca ma
+                                    ON ma.id_marca = a.id_marca
+                                     WHERE ce.estado LIKE '%E%' LIMIT 1");
         
         if (mysqli_num_rows($consulta) > 0){
             

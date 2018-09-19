@@ -156,7 +156,7 @@ class ControladorServicio {
                                                             JOIN clientes c 
                                                             ON c.codigo_cliente = ce.codigo_cliente 
                                                             JOIN servicios s 
-                                                            ON s.codigo_servicio = ce.codigo_servicio");
+                                                            ON s.codigo_servicio = ce.codigo_servicio LIMIT 6");
         $cont = 1;
         if (mysqli_num_rows($consulta) > 0) {
             echo "<tbody>";
