@@ -25,7 +25,7 @@ function validarUsuario(){
         url: "../controladores/ControladorUsuario.php",
         data: datos,
         success: function(datos){
-            alert(datos)
+            
             respuesta = datos;
         }
     });
