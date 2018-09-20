@@ -39,6 +39,44 @@ function validarUsuario(){
 
 }
 
+function validarUsuarioAdministrador(){
+	var usuario = $('#usuario').val();
+	var pass = $('#pass').val();
+	if(usuario.length == 0){
+		alert("Debes ingresar un nombre de usuario");
+		$('#usuario').focus();
+		return;
+	}
+	
+	if(pass.length == 0){
+		alert("Debes ingresar contraseña");
+		$('#pass').focus();
+		return;
+	}
+	
+	var datos = "usua="+usuario+"&pass="+pass+"&admin=1";
+	var respuesta = -1;
+	$.ajax({
+        type: "POST",
+        async: false,
+        cache: true,
+        url: "../controladores/ControladorUsuario.php",
+        data: datos,
+        success: function(datos){
+            
+            respuesta = datos;
+        }
+    });
+	
+	if(respuesta == 0){
+		window.location.href = "administracion.php";
+	}else{
+		alert("Verifique su usuario");
+	}
+		
+
+}
+
 function dameNombreUsuario(){
 	//cargamos el contenido de la tabla con ayuda de una peticion ajax
 	

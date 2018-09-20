@@ -153,7 +153,8 @@ if (isset($_POST['usuario']) and ( isset($_POST['pass']))) {
     $pass = $_POST['pass'];
 }
 
-
+//------------------------------------------------------------------------
+//------------------------------------------------------------------------
 if (!empty($usuario) and ( !empty($pass))) {
     validar($usuario, $pass);
 }
@@ -167,6 +168,40 @@ function validar($usuario, $pass) {
     $conexion->iniciarSesion();
     $consulta = mysqli_query($conexion->dameConexion(), "SELECT id_usuario, "
             . "pass FROM usuarios WHERE usuario LIKE '" . $usuario . "'");
+
+    if (mysqli_num_rows($consulta) > 0) {
+
+        while ($row = mysqli_fetch_row($consulta)) {
+            if (password_verify($pass, $row[1])) {
+                session_start();
+                $_SESSION['id_usuario'] = $row[0];
+                echo 0;
+                return;
+            }
+        }
+    }
+}
+
+
+//-------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------
+//------------------------------------------------------------------------
+if (isset($_POST['usua']) and ( isset($_POST['pass'])) and ( isset($_POST['admin']))) {
+    $usuario = $_POST['usua'];
+    $pass = $_POST['pass'];
+    validarAdministrador($usuario, $pass);
+}
+
+function validarAdministrador($usuario, $pass) {
+
+    require_once "../conexion/conexion.php";
+
+
+    $conexion = new Conexion();
+    $conexion->iniciarSesion();
+    $consulta = mysqli_query($conexion->dameConexion(), "SELECT id_usuario, "
+            . "pass FROM usuarios WHERE usuario LIKE '" . $usuario . "' and id_tipo_de_usuario = 1");
 
     if (mysqli_num_rows($consulta) > 0) {
 

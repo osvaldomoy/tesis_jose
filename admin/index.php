@@ -46,7 +46,7 @@
 				</div>
 			</p>
 		<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" onClick="validarUsuario(); return false;">
+                <button type="button" class="btn btn-primary" onClick="validarUsuarioAdministrador(); return false;">
   Ingresar
 </button>
 			
