@@ -12,13 +12,16 @@
         <script src="../js_eventos/vistas/VistaUsuario.js"></script>
         <script src="../js_eventos/ActualizarBoleta.js"></script>
         <script src="../js_eventos/vistas/VistaClienteEspera.js"></script>
+        <script src="../js_eventos/vistas/VistaUsuario.js"></script>
         <link rel="stylesheet" href="../fontawesome-free-5.0.13/web-fonts-with-css/css/fontawesome-all.css">
         <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
 
     </head>
 
 
-
+    <script>
+        validarUsuarioLink();
+    </script>   
 
     <body style="background-image: url(../img/fondo-espera.jpg); 
           background-repeat: no-repeat; 
@@ -30,11 +33,16 @@
              color: aliceblue;
              text-align: left;
              font-size: 25px;
-             "><i class="fas fa-user"></i><span class="nombreu" style="margin-left: 20px;">Nombre</span> 
+             display: flex;
+             justify-content: space-between;
+             ">
+            <div><i class="fas fa-user"></i><span class="nombreu" style="margin-left: 20px;">Nombre</span> </div>
+            <div style="cursor: pointer;" onclick="cerrarSesion()"><i class="fas fa-sign-out-alt"></i><span class="cerrar-sesion" style="margin-left: 20px;">Cerrar Sesión</span> </div>
+
 
         </div>
 
-
+        <script>dameNombreUsuario();</script>
 
         <script>actualizarListadeEspera();</script>
 
@@ -104,7 +112,7 @@
                                 dameClienteEspera();
                             </script>
                         </div>
-                        
+
 
                     </div>
                 </div>

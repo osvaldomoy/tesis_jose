@@ -220,13 +220,11 @@ function validarAdministrador($usuario, $pass) {
 //-------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------
 
-if (isset($_POST['sesion'])) {
-    $sesion = $_POST['sesion'];
+if (isset($_POST['cerrar_sesion'])) {
+     cerrarSesion();
 }
 
-if (!empty($sesion)) {
-    cerrarSesion();
-}
+
 
 function cerrarSesion() {
 
@@ -240,8 +238,7 @@ function cerrarSesion() {
     //Destruimos las sesiones
     session_destroy();
 
-    session_start();
-    echo $_SESSION['id_usuario'];
+    
 }
 
 //-------------------------------------------------------------------------------------------
@@ -271,5 +268,22 @@ function dameNombreUsuarioActivo() {
         echo "Desconocido";
     }
 }
+//-------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------
+if (isset($_POST['validarlink'])) {
+    validarLink();
+}
+
+
+
+function validarLink() {
+    session_start();
+    if (empty($_SESSION["id_usuario"])) {
+        echo 0;
+      }else{
+          echo 1;
+      }
+}
+
 
 ?>
