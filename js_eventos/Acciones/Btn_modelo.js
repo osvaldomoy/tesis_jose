@@ -70,6 +70,8 @@ function ResetModalModelo() {
         $("#marca_automovil_modelo").removeClass("is-invalid");
         $("#id_modelo").removeClass("is-invalid");
         $("#descripcion_modelo").removeClass("is-invalid");
+        $('#marca_automovil_modelo :option selected').attr('value disabled selected');
+        $('#marca_automovil_modelo').attr('required', 'required');
     });
 }
 

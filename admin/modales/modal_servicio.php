@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="title-servicio-edit">Añadir Nuevo Servicio</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="ResetModalServicio();">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -13,16 +13,19 @@
                     <div class="form-group row">
                         <div class="col-sm">
                             <input type="text"  id="codigo_servicio" class="form-control form-control-sm" style='display: none'>
+                            <label for="colFormLabelSm" class="col-sm col-form-label col-form-label-sm">Descripción</label>
                             <input type="text"  id="descripcion_servicio" class="form-control form-control-sm" placeholder="&#xf1b9; Servicio">
                           <!--<small id="emailHelp" class="form-text text-muted">Campo requerido.</small>-->
                         </div>
                         <div class="col-sm">
+                            <label for="colFormLabelSm" class="col-sm col-form-label col-form-label-sm">Precio</label>
                             <input type="text"  id="precio_servicio" class="form-control form-control-sm" placeholder="&#xf155; Precio">
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm">
-                            <input type="time"  id="tiempo_servicio" class="form-control form-control-sm" value="00:02:30" max="23:59:59" min="00:00:00">
+                            <label for="colFormLabelSm" class="col-sm col-form-label col-form-label-sm">Tiempo</label>
+                            <input type="time"  id="tiempo_servicio" class="form-control form-control-sm" value="00:20:01" max="23:59:59" min="00:00:00">
                         </div>
                     </div>
                 </form>

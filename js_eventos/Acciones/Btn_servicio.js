@@ -1,4 +1,7 @@
 //------------------------------- AÑADIR -----------------------------------------
+$(document).on('click', '#btn-anhadir-servicio', () => {
+    ResetModalServicio();
+});
 
 
 function GuardarDatosServicio() {
@@ -72,6 +75,7 @@ function ResetModalServicio() {
     $('#ModalServicio').on('hidden.bs.modal', function () {
         $(this).find('form').trigger('reset');
         $("#descripcion_servicio").removeClass("is-invalid");
+        $("#precio_servicio").removeClass("is-invalid");
     });
 }
 
@@ -108,7 +112,7 @@ $(document).on('click', '.modificar-datos-servicio', function () {
     $("#descripcion_servicio").val(descripcion);
     $("#precio_servicio").val(precio);
     $("#tiempo_servicio").val(tiempo_servicio);
-    
+
     $('.guardar').css('display', 'none');
     $(".modificar").css('display', 'block');
 
@@ -140,7 +144,7 @@ function ModificarDatosServicio() {
         });
         return;
     }
-    
+
     if (precio.length < 1) {
         $("#precio_servicio").focus();
         $("#precio_servicio").addClass("is-invalid");
@@ -150,7 +154,7 @@ function ModificarDatosServicio() {
         });
         return;
     }
-    
+
     if (tiempo_servicio.length < 1) {
         $("#tiempo_servicio").focus();
         $("#tiempo_servicio").addClass("is-invalid");

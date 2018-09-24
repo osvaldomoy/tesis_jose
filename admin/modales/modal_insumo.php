@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modal-insumo-edit">Añadir Nuevo Insumo</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="ResetModalInsumo();">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -13,25 +13,28 @@
                     <div class="form-group row">
                         <div class="col-sm">
                             <input type="text"  id="codigo_insumo" class="form-control form-control-sm" style='display: none'>
+                            <label for="colFormLabelSm" class="col-sm col-form-label col-form-label-sm">Nombre</label>
                             <input type="text"  id="nombre_insumo" class="form-control form-control-sm" placeholder="&#xf007; Nombre">
                           <!--<small id="emailHelp" class="form-text text-muted">Campo requerido.</small>-->
                         </div>
                         <div class="col-sm">
-                            <input type="text"  id="stock_insumo" class="form-control form-control-sm" placeholder="&#xf0cb; Stock">
+                            <label for="colFormLabelSm" class="col-sm col-form-label col-form-label-sm">Stock actual</label>
+                            <input type="text"  id="stock_insumo" class="form-control form-control-sm" placeholder="&#xf0cb; Stock actual">
                           <!--<small id="emailHelp" class="form-text text-muted">Campo requerido.</small>-->
                         </div>
                     </div>
-                </form>
-                <div class="form-group row">
-                    <div class="col-sm">
-                        <input type="text"  id="stock_min_insumo" class="form-control form-control-sm" placeholder="&#xf0cb; Stock Mínimo">
-                      <!--<small id="emailHelp" class="form-text text-muted">Campo requerido.</small>-->
+                    <div class="form-group row">
+                        <div class="col-sm">
+                            <label for="colFormLabelSm" class="col-sm col-form-label col-form-label-sm">Stock mínimo</label>
+                            <input type="text"  id="stock_min_insumo" class="form-control form-control-sm" placeholder="&#xf0cb; Stock mínimo">
+                          <!--<small id="emailHelp" class="form-text text-muted">Campo requerido.</small>-->
+                        </div>
+                        <div class="col-sm">
+                            <label for="colFormLabelSm" class="col-sm col-form-label col-form-label-sm">Precio</label>
+                            <input type="text"  id="precio_insumo" class="form-control form-control-sm" placeholder="&#xf0cb; Precio">
+                          <!--<small id="emailHelp" class="form-text text-muted">Campo requerido.</small>-->
+                        </div>
                     </div>
-                    <div class="col-sm">
-                        <input type="text"  id="precio_insumo" class="form-control form-control-sm" placeholder="&#xf0cb; Precio">
-                      <!--<small id="emailHelp" class="form-text text-muted">Campo requerido.</small>-->
-                    </div>
-                </div>
                 </form>
             </div>
             <div class="modal-footer">

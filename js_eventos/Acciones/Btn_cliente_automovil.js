@@ -154,12 +154,11 @@ function CerrarModalClienteAutomovil() {
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
     }
-    ;
 }
 
 function ResetModalClienteAutomovil() {
     $('#ModalClienteAutomovil').on('hidden.bs.modal', function () {
-        $(this).find('form').trigger('reset');
+        $("#ModalClienteAutomovil").trigger('reset');
         $("#cliente_automovil_nombre").removeClass("is-invalid");
         $("#cliente_automovil_auto").removeClass("is-invalid");
         $("#cliente_automovil_chapa").removeClass("is-invalid");

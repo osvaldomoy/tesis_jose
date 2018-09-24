@@ -3,8 +3,8 @@
         <form>
             <div class="row" style="max-width: 80%; justify-content: center; margin: 0 auto;">
                 <div class="col-sm-1">
-                   <button class="btn btn-primary" data-toggle="modal" data-target="#ModalInsumo" 
-                style="margin-bottom: 20px;" onClick="BorrarModificarEliminar();">Añadir</button>
+                    <input type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalInsumo" 
+                           style="margin-bottom: 20px;" onClick="BorrarModificarEliminar();" value="Añadir">
                 </div>
                 <div class="col-sm-10">
                     <input type="text" id="buscador-insumo" class="form-control" 

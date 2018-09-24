@@ -56,6 +56,11 @@
             option {
                 color: black;
             }
+            
+            .modal-body form label {
+                text-align: left;
+                padding: 5px 0;
+            }
 
         </style>
 
