@@ -97,6 +97,47 @@ function dameNombreUsuario(){
 	$('.nombreu').html(info);
 }
 
+function cerrarSesion() {
+    var info = "";
+		$.ajax({
+		type: "POST",
+			async: false,
+			cache: false,
+			url: "../controladores/ControladorUsuario.php",
+			data: "cerrar_sesion='hola'",
+
+			success: function(datos) {
+				
+				info = datos;
+				//$('.nombre_usuario').html(datos);
+			}
+		});
+	if(info == 0){
+            location.href = "index.php"
+        }
+}
+
+function validarUsuarioLink(){
+    var datos = "validarlink=141";
+	var respuesta = -1;
+	$.ajax({
+        type: "POST",
+        async: false,
+        cache: true,
+        url: "../controladores/ControladorUsuario.php",
+        data: datos,
+        success: function(datos){
+            
+            respuesta = datos;
+        }
+    });
+	
+	if(respuesta == 0){
+		alert("Usted no tiene permisos");
+                window.location.href = "index.php";
+	}
+}
+
 
 
 
