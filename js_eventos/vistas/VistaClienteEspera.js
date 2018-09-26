@@ -106,7 +106,7 @@ function clienteAtencion(){
 
 function terminarAtencion(){
 	//cargamos el contenido de la tabla con ayuda de una peticion ajax
-		alert("hola");
+		
 		var info = "";
 		$.ajax({
 		type: "POST",
@@ -119,10 +119,13 @@ function terminarAtencion(){
 				
 				
 				info = datos;
+                                alert("Finalizado Correctamente");
+                                
 			}
 		});
 	
 	clienteAtencion();
+        location.reload(true);
 	
 }
 

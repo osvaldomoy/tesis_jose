@@ -118,7 +118,20 @@ function CargaDatosTabla() {
             "</tr>" +
             "</thead>" +
             "<tbody>";
-    contenido_stock = "<h4>Insumos a Utilizar</h4>"
+    contenido_stock = "<h4>Vista general de Ticket</h4>";
+    contenido_stock += "<div>"+
+                        "<h4 style='text-align:  center; width: 100%; margin-bottom: 50px;'>Vistas General de Ticket</h4>"+
+                        "<div style='display: flex; align-content: center;width: 100%;justify-content: center; font-family: monospace;'><img src='../images/logo.png' ></div>"+
+                             "<p style='text-align: center; font-family: monospace;'>SMART MACHINE</p>"+
+                             "<p style='text-align: center; font-family: monospace;'>"+
+                             "<ul class='info-ticket'>"+
+                                 "<li >Sucursal - Itauguá</li>"+
+                                 "<li >Ruc: 5431319-8  -   Tel.: 0971 120 612</li>"+
+                                 "<li>Fecha: <span  class='fecha'>26-09-2018</span>  -  Hora: <span  class='hora'>21:20</span> </li>"+
+                                 
+
+                             "</ul></p></div>";
+    
 
     $("input[class=f1]:checked").each(function () {
 
@@ -144,7 +157,7 @@ function CargaDatosTabla() {
             var d2 = r[1];//modelo
             var d3 = r[2];//marca
             var nada = 'hola';
-            contenido_stock += "<h5>" + servicio + " - " + d2 + " - " + d3 + "</h5><hr>";
+            contenido_stock += "<h5 class='info-ticket' style='text-align:center;'>" + servicio + " - " + d2 + " - " + d3 + "</h5><hr>";
             tableDatos += "<tr class='p columnas-servicio'>" +
                     "<th scope='row'>" + d1 + "</th>" +
                     "<td >" + d2 + "</td>" +
@@ -187,7 +200,7 @@ function CargaDatosTabla() {
 
             var descripciones_stock = temp.split('-');
             //PRECIO DEL INSUMO
-            contenido_stock += "<ul>";
+            contenido_stock += "<ul class='info-ticket'>";
 
             for (var i = 0; i < descripciones_stock.length - 1; i++) {
 
@@ -240,8 +253,8 @@ function CargaDatosTabla() {
     tableDatos += "</tbody>" +
             " ";
     //cargamos los datos de la otra tabla
-    var total_info = "</table> <h3 style='width=100%; background-color: #333333; color : white;'>\n\
-                Total a pagar: <span class='total-a-pagar'>0</span></h3>";
+    var total_info = "</table> <h3 style='width=100%; background-color: #333333; color : white; text-align:center;' class='info-ticket'>\n\
+                Total a pagar: <span class='total-a-pagar' >0</span></h3>";
     $(".contenido-otra-tabla").html(tableDatos);
     contenido_stock += total_info;
     $(".mensaje-stock").html(contenido_stock);

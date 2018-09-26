@@ -79,7 +79,8 @@ function dameClienteEspera() {
     if (mysqli_num_rows($consulta) > 0) {
 
         while ($row = mysqli_fetch_row($consulta)) {
-            echo "<span class='display: none;'></span><div class='card-body' ><h5 class='card-title' style='font-size: 35px;'>" . $row[0] . "</h5>";
+            echo "<span class='display: none;'></span><div class='card-body' >"
+            . "<h5 class='card-title' style='font-size: 35px;'>" . $row[0] . "</h5>";
             echo "<p class='card-text'></p>";
             echo "<p><b>Servicio  Solicitado: </b>" . $row[1] . "</p>
 					  <p><b>Vehículo:</b> 

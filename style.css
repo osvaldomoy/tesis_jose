@@ -18,4 +18,20 @@
 }
 .fondo-espera{
 	background: red !important;
+        
+}
+
+.info-ticket{
+    font-family: monospace;
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+.info-ticket li{
+    font-family: monospace;
+    text-align: center;
+}
+.info-ticket li span{
+    font-family: monospace;
+    text-align: center;
 }

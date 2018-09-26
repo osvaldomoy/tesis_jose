@@ -4,13 +4,14 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Documento sin título</title>
+        <title>TURNOS</title>
 
         <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="../style.css">
         <script src="../js/bootstrap.min.js"></script>
         <script src="../js_eventos/jquery.js"></script>
         <script src="../js_eventos/vistas/VistaCliente.js"></script>
+        <link rel="shortcut icon" href="../images/icono.png" />
     </head>
 
     <body style="background-image: url(../img/fondo-espera.jpg); 
@@ -58,8 +59,9 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-
+                    
                     <div class="modal-body contenido-modal">
+                       
 
 
                     </div>
@@ -67,6 +69,29 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                         <button type="button" class="btn btn-primary" onClick="GuardarClienteEspera();">Listo</button>
                     </div>
+                    
+<!--                    <div >
+                        <h4 style="text-align:  center; width: 100%; margin-bottom: 50px;">Vistas General de Ticket</h4>
+                        <div style="display: flex;
+                             align-content: center;
+                             width: 100%;
+                             justify-content: center;
+                             font-family: monospace;"><img src="../images/logo.png" alt=""></div>
+                             <p style="text-align: center; font-family: monospace;">SMART MACHINE</p>
+                             <p style="text-align: center; font-family: monospace;">
+                             <ul class="info-ticket">
+                                 <li >Sucursal - Itauguá</li>
+                                 <li >Ruc: 5431319-8 
+                                      Tel.: 0971 120 612</li>
+                                 <li>Fecha: <span  class="fecha">26-09-2018</span>  -  
+                                     Hora: <span  class="hora">21:20</span> </li>
+                                 
+
+                             </ul>
+
+                             </p>
+                             
+                    </div>-->
                 </div>
             </div>
         </div>
