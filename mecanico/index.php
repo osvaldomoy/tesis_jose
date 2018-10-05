@@ -11,6 +11,7 @@
 	<script src="../js/bootstrap.min.js"></script>
 	<script src="../js_eventos/jquery.js"></script>
 	<script src="../js_eventos/vistas/VistaUsuario.js"></script>
+        <link rel="shortcut icon" href="../images/icono.png" />
 </head>
                                                                                          
 <body style="background-image: url(../img/fondo-espera.jpg); 

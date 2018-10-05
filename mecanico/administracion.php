@@ -15,6 +15,7 @@
         <script src="../js_eventos/vistas/VistaUsuario.js"></script>
         <link rel="stylesheet" href="../fontawesome-free-5.0.13/web-fonts-with-css/css/fontawesome-all.css">
         <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+        <link rel="shortcut icon" href="../images/icono.png" />
 
     </head>
 

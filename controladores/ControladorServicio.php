@@ -238,7 +238,10 @@ class ControladorServicio {
 
             while ($row = mysqli_fetch_array($consulta)) {
                 echo "<h5 class='card-title' style='font-size: 120px; text-align: center;'>S" . $row[0] . "</h5>" .
-                "<p class='card-text' style='font-size: 20px; text-align: center;'>" . $row[1] . "</p>";
+                "<p class='card-text' style='font-size: 20px; text-align: center;'>" . $row[1] . "</p>"
+                        . "<h5 class='card-title' style='text-align: center; font-size: 60px;'>Tiempo Restante</h5>
+			<h5 class='card-title' style='font-size: 100px; text-align: center;' id='countdown'></h5>"
+                        ;
             }
         } else {
             echo " <p>Aún no hay registros en la base de datos</p>";

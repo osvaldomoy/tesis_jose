@@ -1,5 +1,5 @@
 window.onload = function(){
-	ActualizaBoleta();
+	//ActualizaBoleta();
 	actualizarListadeEspera();
 }
 
@@ -40,7 +40,9 @@ function actualizarListadeEspera(){
 function ActualizaBoleta(){
 	
 	
-	var m = document.getElementById("time").innerHTML;
+	
+    
+    var m = document.getElementById("time").innerHTML;
 	
 	var minuto = m.split(":");
 	//alert(minuto[2]);
@@ -106,8 +108,8 @@ function CambiarMinuto(hora,minuto,segundo){
             document.getElementById('countdown').innerHTML += minutes + ':';
             document.getElementById('countdown').innerHTML += seconds;
             
-            console.log(minutes+':'+seconds);
-			timer = setTimeout(Temporizador, 1000);
+//            console.log(minutes+':'+seconds);
+//			timer = setTimeout(Temporizador, 1000);
             
         }
         
