@@ -41,6 +41,35 @@ function dameTodoServicio() {
     }
 }
 
+
+//-------------------------- FILTRAR SERVICIO -----------------------------------------
+
+
+if (isset($_POST["dame_filtro"])) {
+    $filtro_servicio = $_POST["dame_filtro"];
+}
+
+if (!empty($filtro_servicio)) {
+    dameFiltroServicio($filtro_servicio);
+}
+
+function dameFiltroServicio($filtro_servicio) {
+
+    require_once "../conexion/conexion.php";
+    $conexion = new Conexion();
+    $conexion->iniciarSesion();
+    $consulta = mysqli_query($conexion->dameConexion(), "SELECT descripcion FROM servicios
+            WHERE descripcion LIKE '".$filtro_servicio."%'");
+
+    if (mysqli_num_rows($consulta) > 0) {
+        while ($row = mysqli_fetch_array($consulta)) {
+            echo "<div class='caja_filtro_servicio'>".$row[0]."</div>";
+        }
+    } else {
+        echo "No hay datos";
+    }
+}
+
 //------------------------------- GUARDAR DATOS SERVICIO -----------------------------------
 
 

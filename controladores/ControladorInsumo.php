@@ -1,4 +1,5 @@
 <?php
+
 //------------------ LISTA DE INSUMOS -----------------------------------------
 
 if (isset($_POST["lista"])) {
@@ -21,13 +22,12 @@ function dameTodoInsumos() {
     if (mysqli_num_rows($consulta) > 0) {
         echo "<tbody>";
         while ($row = mysqli_fetch_array($consulta)) {
-            if($row[2]<=$row[3]){
+            if ($row[2] <= $row[3]) {
                 echo "<tr style='background-color: #ef6e6e;'>";
-            }
-            else{
+            } else {
                 echo "<tr>";
             }
-            
+
             echo "<th scope='row'>" . $cont . "</th>";
             echo "<td class='fila' style='display: none;'>" . $row[0] . "</td>";
             echo "<td class='fila'>" . $row[1] . "</td>";
@@ -69,13 +69,12 @@ function dameFiltroInsumos($datos_insumo) {
     if (mysqli_num_rows($consulta) > 0) {
         echo "<tbody>";
         while ($row = mysqli_fetch_array($consulta)) {
-            if($row[2]<=$row[3]){
+            if ($row[2] <= $row[3]) {
                 echo "<tr style='background-color: #ef6e6e;'>";
-            }
-            else{
+            } else {
                 echo "<tr>";
             }
-            
+
             echo "<th scope='row'>" . $cont . "</th>";
             echo "<td class='fila' style='display: none;'>" . $row[0] . "</td>";
             echo "<td class='fila'>" . $row[1] . "</td>";
@@ -108,7 +107,7 @@ if (isset($_POST["nombre"]) and isset($_POST["stock"]) and isset($_POST["stock_m
     $stock = $_POST["stock"];
     $stock_minimo = $_POST["stock_minimo"];
     $precio = $_POST["precio"];
-    
+
     $guardarInsumo = new Insumos($nombre, $stock, $stock_minimo, $precio);
 }
 
@@ -146,8 +145,7 @@ if (isset($_POST["up_id"]) and isset($_POST["up_nombre"]) and isset($_POST["up_s
     $up_precio = $_POST["up_precio"];
 
 
-    $modificarInsumo = new Insumos($up_id_insumo, $up_nombre, $up_stock, $up_stock_minimo,
-            $up_precio);
+    $modificarInsumo = new Insumos($up_id_insumo, $up_nombre, $up_stock, $up_stock_minimo, $up_precio);
 }
 
 if (!empty($modificarInsumo)) {
@@ -185,7 +183,7 @@ if (isset($_POST["id_delete"])) {
 if (!empty($borrarInsumo)) {
 
     BorrarDatosModelo($borrarInsumo);
-} 
+}
 
 function BorrarDatosModelo($borrarInsumo) {
 
@@ -199,43 +197,60 @@ function BorrarDatosModelo($borrarInsumo) {
 }
 
 //-----------------------------------------------------------------------------------------------------------
-	//-----------------------------------------------------------------------------------------------------------
-	if(isset($_POST['precio_insumo_nombre'])  
-	 ){
-		
-		
-		$nombre = $_POST['precio_insumo_nombre'];
-		
-		
-		damePrecioInsumoPorNombre($nombre);
-		
-	}
+//-----------------------------------------------------------------------------------------------------------
+if (isset($_POST['precio_insumo_nombre'])
+) {
 
-	
 
-	function damePrecioInsumoPorNombre($nombre){
-		
-		require_once "../conexion/conexion.php";
-		$conexion = new Conexion();
-		$conexion->iniciarSesion();
-		
-		$consulta = mysqli_query($conexion->dameConexion(), "SELECT precio FROM insumos WHERE nombre LIKE '".$nombre."'");
+    $nombre = $_POST['precio_insumo_nombre'];
 
-		
-		if (mysqli_num_rows($consulta) > 0){
-			
-			 while($row = mysqli_fetch_array($consulta)){
-				echo  $row[0];
-			 }
-			
-			 
-		}else{
-			echo 0;
-		}
-		
-		
-		
-		
-	}
 
-?>
+    damePrecioInsumoPorNombre($nombre);
+}
+
+function damePrecioInsumoPorNombre($nombre) {
+
+    require_once "../conexion/conexion.php";
+    $conexion = new Conexion();
+    $conexion->iniciarSesion();
+
+    $consulta = mysqli_query($conexion->dameConexion(), "SELECT precio FROM insumos WHERE nombre LIKE '" . $nombre . "'");
+
+
+    if (mysqli_num_rows($consulta) > 0) {
+
+        while ($row = mysqli_fetch_array($consulta)) {
+            echo $row[0];
+        }
+    } else {
+        echo 0;
+    }
+}
+
+//----------------------- MOSTRAR INSUMO-------------------------------------
+
+if (isset($_POST["insumo"])) {
+    $datos = $_POST["insumo"];
+}
+
+if (!empty($datos)) {
+    dameInsumo();
+}
+
+function dameInsumo() {
+
+    require_once "../conexion/conexion.php";
+    $conexion = new Conexion();
+    $conexion->iniciarSesion();
+    $consulta = mysqli_query($conexion->dameConexion(), "SELECT codigo_insumo, nombre FROM insumos "
+            . "ORDER BY nombre ASC");
+
+    if (mysqli_num_rows($consulta) > 0) {
+        echo "<option class='valor' value='' disabled selected>Insumo</option>";
+        while ($row = mysqli_fetch_array($consulta)) {
+            echo "<option value='".$row[0]."'>$row[1]</option>";
+        }
+    } else {
+        echo "No hay datos";
+    }
+}

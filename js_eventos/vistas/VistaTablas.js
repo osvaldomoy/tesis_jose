@@ -16,7 +16,7 @@ function MostrarMenuClientes() {
 
     $("#contenedor-tablas").html(contenido);
     MostrarListaClientes();
-    
+
 
 }
 
@@ -361,7 +361,7 @@ function MostrarMenuInsumos() {
 }
 
 function MostrarListaInsumos() {
-   
+
 
     var contenido = "<thead class='thead-dark'>" +
             "<tr>" +
@@ -388,6 +388,125 @@ function MostrarListaInsumos() {
     $("#lista-insumo").html(contenido);
 
 }
+
+//------------------------------- INSUMOS - SERVICIOS ------------------------------------------------
+
+function MostrarMenuInsumos_Servicios() {
+
+    document.getElementById("contenedor-tablas").style.display = "block";
+    var contenido = "";
+    $.ajax({
+        type: "POST",
+        async: false,
+        cache: false,
+        url: "menu_Acciones/Vista_menu_servicios_insumos.php",
+        success: function (datos) {
+            contenido += datos;
+        }
+    });
+
+    $("#contenedor-tablas").html(contenido);
+    MostrarListaServiciosInsumos();
+
+}
+
+//----------------- FILTRAR SERVICIO -----------------------------
+
+function FiltrarServicio() {
+    //alert('hola');
+
+    var filtroInput = $('#buscador-servicio').val();
+    filtroInput = filtroInput.trim();
+    if (filtroInput.length > 0) {
+        $('#resultados').css('display', 'block');
+        var datos = "dame_filtro=" + filtroInput;
+        $.ajax({
+            type: 'POST',
+            async: false,
+            url: '../controladores/ControladorServicio.php',
+            data: datos,
+            success: function (data) {
+                $('#resultados').html(data);
+            }
+        });
+    } else {
+        $('#resultados').css('display', 'none');
+    }
+
+}
+
+function ValidarFiltroServicio() {
+    
+    var f_servicio = $('.caja_filtro_servicio').text();
+    
+    if (f_servicio == '') {
+        $('#resultados').attr('disabled', 'disabled');
+        $('#resultados').onclick = null;
+    } else {
+        $('.caja_filtro_servicio').css('cursor', 'pointer');
+        $('.caja_filtro_servicio').removeAttr('disabled');
+    }
+
+}
+
+$(document).on('click', '.caja_filtro_servicio', () => {
+    var filtro = $(event.target).closest('div').text();
+    if (filtro != 'No hay datos') {
+        $('#buscador-servicio').val(filtro);
+        $('#resultados').css('display', 'none');
+    }
+});
+
+//----------------- FILTRAR AUTOMOVIL -----------------------------
+
+function FiltrarAutomovil() {
+    //alert('hola');
+
+    var filtroInput = $('#buscador-automovil').val();
+    filtroInput = filtroInput.trim();
+    if (filtroInput.length > 0) {
+        $('#resultados-automovil').css('display', 'block');
+        var datos = "dame_filtro_auto=" + filtroInput;
+        $.ajax({
+            type: 'POST',
+            async: false,
+            url: '../controladores/ControladorAutomovil.php',
+            data: datos,
+            success: function (data) {
+                $('#resultados-automovil').html(data);
+            }
+        });
+    } else {
+        $('#resultados-automovil').css('display', 'none');
+    }
+
+}
+
+function ValidarFiltroAutomovil() {
+    
+    var f_automovil = $('.caja_filtro_automovil').text();
+    
+    if (f_automovil == '') {
+        $('#resultados-automovil').attr('disabled', 'disabled');
+        $('#resultados-automovil').onclick = null;
+    } else {
+        $('#caja_filtro_automovil').css('cursor', 'pointer');
+        $('#caja_filtro_automovil').removeAttr('disabled');
+    }
+
+}
+
+$(document).on('click', '.caja_filtro_automovil', () => {
+    var filtro = $(event.target).closest('div').text();
+    if (filtro != 'No hay datos') {
+        $('#buscador-automovil').val(filtro);
+        $('#resultados-automovil').css('display', 'none');
+    }
+});
+
+
+
+
 
 
 

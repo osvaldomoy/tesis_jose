@@ -43,6 +43,40 @@ function dameTodoAuto() {
     }
 }
 
+//-------------------------- FILTRAR AUTOMOVIL -----------------------------------------
+
+
+if (isset($_POST["dame_filtro_auto"])) {
+    $filtro_automovil = $_POST["dame_filtro_auto"];
+}
+
+if (!empty($filtro_automovil)) {
+    dameFiltroAutomovil($filtro_automovil);
+}
+
+function dameFiltroAutomovil($filtro_automovil) {
+
+    require_once "../conexion/conexion.php";
+    $conexion = new Conexion();
+    $conexion->iniciarSesion();
+    $consulta = mysqli_query($conexion->dameConexion(), "SELECT CONCAT(mr.descripcion, ' ',md.descripcion) 
+    FROM automovil a 
+    JOIN marca mr 
+    ON mr.id_marca = a.id_marca 
+    JOIN modelo md 
+    ON md.id_modelo = a.id_modelo 
+    WHERE concat(mr.descripcion, ' ', md.descripcion) LIKE '".$filtro_automovil."%' 
+    OR CONCAT(md.descripcion, ' ', mr.descripcion) LIKE '".$filtro_automovil."%'");
+
+    if (mysqli_num_rows($consulta) > 0) {
+        while ($row = mysqli_fetch_array($consulta)) {
+            echo "<div class='caja_filtro_automovil'>".$row[0]."</div>";
+        }
+    } else {
+        echo "No hay datos";
+    }
+}
+
 //----------------------------- CARGAR LOS AUTOMOVILES ------------------------
 if (isset($_POST["lista_auto"])) {
     $datos_auto = $_POST["lista_auto"];
@@ -65,12 +99,12 @@ JOIN modelo md
 ON md.id_modelo = a.id_modelo
 WHERE a.activo = 1
 ORDER BY mr.descripcion ASC");
-    
+
 
     if (mysqli_num_rows($consulta) > 0) {
         echo "<option class='valor' value disabled selected>Automovil</option>";
         while ($row = mysqli_fetch_array($consulta)) {
-            echo "<option value='".$row[0]."'>".$row[1]."</option>";
+            echo "<option value='" . $row[0] . "'>" . $row[1] . "</option>";
         }
     } else {
         echo "No hay datos";
@@ -113,7 +147,6 @@ function GuardarDatosAutomovil($guardarAutomovil) {
     $conexion->dameConexion()->query($sql);
 }
 
-
 //------------------------------- MODIFICAR DATOS AUTOMOVIL -----------------------------------
 
 
@@ -138,7 +171,7 @@ if (!empty($modificarAutomovil)) {
 
 function ModificarDatosAutomovil($modificarAutomovil) {
 
-     $sql = "UPDATE automovil SET "
+    $sql = "UPDATE automovil SET "
             . "id_marca=" . $modificarAutomovil->getIdMarca() . ","
             . "id_modelo=" . $modificarAutomovil->getIdModelo() . ","
             . "anho=" . $modificarAutomovil->getAnho() . ""
@@ -179,4 +212,35 @@ function BorrarDatosAutomovil($borrarAutomovil) {
     $conexion->dameConexion()->query($sql);
 }
 
-?>
+
+//----------------------- OBTENER ID DE AUTOMOVIL POR MEDIO DE LA DESCRIPCIÓN --------------------------------------------
+
+
+require_once "../conexion/conexion.php";
+
+if (isset($_POST["nombre"])) {
+    $id_automovil = $_POST["nombre"];
+}
+
+if (!empty($id_automovil)) {
+    dameIdAutomovil($id_automovil);
+}
+
+function dameIdAutomovil($id_automovil) {
+    $conexion = new Conexion();
+    $conexion->iniciarSesion();
+    $consulta = mysqli_query($conexion->dameConexion(), "SELECT a.id_automovil "
+            . "FROM automovil a "
+            . "JOIN marca mr ON mr.id_marca = a.id_marca "
+            . "JOIN modelo md ON md.id_modelo = a.id_modelo "
+            . "WHERE CONCAT (mr.descripcion, ' ', md.descripcion) = '".$id_automovil."'");
+    if (mysqli_num_rows($consulta) > 0) {
+
+        while ($row = mysqli_fetch_array($consulta)) {
+            echo $row[0];
+        }
+    } else {
+        echo "No hay datos";
+    }
+}
+

@@ -108,10 +108,10 @@ if (isset($_POST["id_delete"])) {
 
 if (!empty($borrarMarca)) {
 
-    BorrarDatosMarca($borrarMarca);
+    BorrarDatosServicioInsumo($borrarMarca);
 }
 
-function BorrarDatosMarca($borrarMarca) {
+function BorrarDatosServicioInsumo($borrarMarca) {
 
     $sql = "DELETE FROM marca WHERE id_marca = " . $borrarMarca->getIdMarca() . "";
 

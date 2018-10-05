@@ -10,7 +10,8 @@ function GuardarDatosModelo() {
     var id_marca = dameIdMarca(marca);
     var descripcion = $("#descripcion_modelo").val();
 
-    if (marca == "") {
+    if (marca == null) {
+        alert('Seleccione la marca primero');
         $("#marca_automovil_modelo").focus();
         $("#marca_automovil_modelo").addClass("is-invalid");
 

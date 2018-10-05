@@ -18,6 +18,7 @@
         <script src="../js_eventos/Acciones/Btn_modelo.js"></script>
         <script src="../js_eventos/Acciones/Btn_servicio.js"></script>
         <script src="../js_eventos/Acciones/Btn_insumo.js"></script>
+        <script src="../js_eventos/Acciones/Btn_detalle_servicio_insumo.js"></script>
         <script src="../js_eventos/Acciones/Busquedas/busca_insumo.js"></script>
         <script src="../js_eventos/vistas/VistaUsuario.js"></script>
         <link rel="stylesheet" href="../fontawesome-free-5.0.13/web-fonts-with-css/css/fontawesome-all.css">
@@ -49,26 +50,56 @@
             select:required:invalid {
                 color: gray;
             }
-            
+
             option[value=""][disabled] {
                 display: none;
             }
-            
+
             option {
                 color: black;
             }
-            
+
             .modal-body form label {
                 text-align: left;
                 padding: 5px 0;
             }
+            
+            .row {
+                margin-top: 20px;
+            }
+            
+            #resultados {
+                text-align: left;
+                background-color: white;
+            }
+            
+            #resultados-automovil {
+                text-align: left;
+                background-color: white;
+            }
+            
+            #resultados div {
+                padding: 5px;
+            }
+            
+            #resultados-automovil div {
+                padding: 5px;
+            }
+            
+            #resultados >div:hover {
+                background-color: #ccd9e5 !important;
+            }
+            
+            #resultados-automovil >div:hover {
+                background-color: #ccd9e5 !important;
+            }
 
         </style>
-
+        <script>
+            validarUsuarioLink();
+        </script>
     </head>
-    <script>
-        validarUsuarioLink();
-    </script>
+
 
     <body style="background-image: url(../img/fondo-espera.jpg); 
           background-repeat: no-repeat; 
@@ -85,8 +116,8 @@
              ">
             <div><i class="fas fa-user"></i><span class="nombreu" style="margin-left: 20px;">Nombre</span> </div>
             <div style="cursor: pointer;" onclick="cerrarSesion()"><i class="fas fa-sign-out-alt"></i><span class="cerrar-sesion" style="margin-left: 20px;">Cerrar Sesión</span> </div>
-            
-            
+
+
         </div>
         <script>dameNombreUsuario();</script>
         <div class="contenedor-menu" style="display: flex;
@@ -99,7 +130,7 @@
 
 
 
-                     <div class="card-body" style="padding: 0">
+                <div class="card-body" style="padding: 0">
                     <!--Contenedor Menú-->
 
                     <div class="container" style="margin: 20px auto 50px auto; max-width: 100%">
@@ -134,6 +165,8 @@
                                     <div class="menu-text">Marca</div>
                                 </button>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-sm">
                                 <button class="btn btn-primary btn-menu" type="submit" onClick="MostrarMenuModelos();">
                                     <div class="menu-icon"><h1><i class="fas fa-user"></i></h1></div>
@@ -142,14 +175,20 @@
                             </div>
                             <div class="col-sm">
                                 <button class="btn btn-primary btn-menu" type="submit" onClick="MostrarMenuServicios();">
-                                    <div class="menu-icon"><h1><h1><i class="fas fa-car"></i></h1></div>
+                                    <div class="menu-icon"><h1><i class="fas fa-car"></i></h1></div>
                                     <div class="menu-text">Servicio</div>
                                 </button>
                             </div>
                             <div class="col-sm">
                                 <button class="btn btn-primary btn-menu" type="submit" onClick="MostrarMenuInsumos();">
-                                    <div class="menu-icon"><h1><h1><i class="fas fa-car"></i></h1></div>
+                                    <div class="menu-icon"><h1><i class="fas fa-car"></i></h1></div>
                                     <div class="menu-text">Insumos</div>
+                                </button>
+                            </div>
+                            <div class="col-sm">
+                                <button class="btn btn-primary btn-menu" type="submit" onClick="MostrarMenuInsumos_Servicios();">
+                                    <div class="menu-icon"><h1><i class="fas fa-car"></i></h1></div>
+                                    <div class="menu-text">Insumos - <br>Servicios</div>
                                 </button>
                             </div>
                         </div>
@@ -172,7 +211,7 @@
 
                     //Llamada a Modal Automovil
                     require_once("modales/modal_automovil.php");
-                    
+
                     //Llamada a Modal Cliente - Automovil
                     require_once("modales/modal_cliente_automovil.php");
 
@@ -187,6 +226,9 @@
 
                     //Llamada a Modal Insumo
                     require_once("modales/modal_insumo.php");
+                    
+                    //Llamada a Modal Servicio - Insumo
+                    require_once("modales/modal_servicio_insumo.php");
                     ?>
 
                 </div>
