@@ -4,7 +4,9 @@ function ValidarServicioInsumo() {
 
     var servicio = $('#buscador-servicio').val();
     var automovil = $('#buscador-automovil').val();
-
+    var detalle_identidad = "";
+    
+    
 //    alert(servicio + ' ' + automovil);
     if (servicio.length < 1) {
         alert('No se seleccionó el servicio');
@@ -21,7 +23,7 @@ function ValidarServicioInsumo() {
     var datos = 'servicio=' + servicio + '&automovil=' + automovil;
 //    alert(datos);
 
-
+    
     var contenido = "<table>" +
             "<thead class='thead-dark'>" +
             "<tr>" +
@@ -45,12 +47,25 @@ function ValidarServicioInsumo() {
     });
     $("#lista-insumo-servicio").html(contenido);
 
+    $.ajax({
+        type: "POST",
+        async: false,
+        cache: false,
+        url: "../controladores/ControladorServicioInsumo.php",
+        data: "servicio_cod=" + servicio + "&automovil_cod=" + automovil,
+        success: function (datos) {
+            //alert(datos);
+            detalle_identidad = datos;
+        }
+    });
+    
     $("#btn-anhadir-servicio-insumo").css('display', 'block');
     $(".auto_servicio_contenedor").css('display', 'block');
     $(".auto_servicio_contenedor").css('text-align', 'left');
     //$(".auto_servicio_contenedor").css('justify-content', 'space-around');
     $(".auto_servicio_contenedor").html("<h3>Automovil: <b id='auto-text'>" + automovil + "</b></h3>\n\
-    <h3>Servicio: <b id='servicio-text'>" + servicio + "</b></h3>");
+    <h3>Servicio: <b id='servicio-text'>" + servicio + "</b></h3>\n\
+    <h3>Código de identidad: <b id='identidad-text'>"+ detalle_identidad +"</b></h3>");
 
 }
 
@@ -62,13 +77,11 @@ $(document).on('click', '#btn-anhadir-servicio-insumo', function () {
     var id_servicio = dameIdServicio(servicio);
     var id_automovil = dameIdAutomovil(automovil);
 
-    //alert(id_servicio);
-    //alert(id_automovil);
     CargarInsumo();
 });
 
 function dameIdServicio(nombre) {
-    valor = 'tres';
+    var valor = 'tres';
     $.ajax({
         type: "POST",
         async: false,
@@ -81,10 +94,11 @@ function dameIdServicio(nombre) {
     });
 
     $('#id_servicio_detalle').val(valor);
+    return valor;
 }
 
 function dameIdAutomovil(nombre) {
-    valor = 'tres';
+    var valor = 'tres';
     $.ajax({
         type: "POST",
         async: false,
@@ -97,6 +111,7 @@ function dameIdAutomovil(nombre) {
     });
 
     $('#id_automovil_detalle').val(valor);
+    return valor;
 }
 
 function CargarInsumo() {
@@ -125,6 +140,19 @@ function GuardarDatosServicioInsumo() {
     var id_automovil = $('#id_automovil_detalle').val();
     var id_servicio = $('#id_servicio_detalle').val();
     var cantidad = $('#cantidad_insumo').val();
+    var codigo_detalle = $('#identidad-text').text();
+    //alert(codigo_detalle);
+    
+    if(codigo_detalle == 'Sin código'){
+        var ulti_cod = obtenerUltimoCodigoDetalle();
+        var srt = ulti_cod;
+        var res = srt.substring(1);
+        var new_codigo_detalle = 'A' + (parseInt(res) + 1);
+        codigo_detalle = new_codigo_detalle;
+        //alert(codigo_detalle);
+    }/*else{
+        alert(codigo_detalle);
+    }*/
 
     if (id_insumo == null) {
         alert('Seleccione el insumo');
@@ -147,8 +175,9 @@ function GuardarDatosServicioInsumo() {
     }
 
     var datos = "id_insumo=" + id_insumo + "&id_automovil=" + id_automovil +
-            "&id_servicio=" + id_servicio + "&cantidad=" + cantidad;
-
+            "&id_servicio=" + id_servicio + "&cantidad=" + cantidad + "&codigo_identidad=" + codigo_detalle;
+    
+    
     $.ajax({
         type: "POST",
         async: false,
@@ -156,14 +185,33 @@ function GuardarDatosServicioInsumo() {
         url: "../controladores/ControladorServicioInsumo.php",
         data: datos,
         success: function (datos) {
-//            alert(datos);
+            //alert(datos);
         }
     });
 
+    actualizarCodigoIdentidad(id_automovil, id_servicio);
     MostrarListaServicioInsumo(automovil, servicio);
     CerrarModalServicioInsumo();
     ResetModalServicioInsumo();
 
+}
+
+function obtenerUltimoCodigoDetalle() {
+    
+    var ultimo_cod = "";
+    
+    $.ajax({
+        type: "POST",
+        async: false,
+        cache: false,
+        url: "../controladores/ControladorServicioInsumo.php",
+        data: 'ultimo=1',
+        success: function (datos) {
+            ultimo_cod = datos;
+        }
+    });
+    
+    return ultimo_cod;
 }
 
 function MostrarListaServicioInsumo(auto, servicio) {
@@ -193,6 +241,24 @@ function MostrarListaServicioInsumo(auto, servicio) {
     });
     $("#lista-insumo-servicio").html(contenido);
 
+}
+
+function actualizarCodigoIdentidad(id_automovil, id_servicio) {
+    
+    var contenido = "";
+    var datos = "id_auto=" + id_automovil + "&id_servicio=" + id_servicio;
+
+    $.ajax({
+        type: "POST",
+        async: false,
+        cache: false,
+        url: "../controladores/ControladorServicioInsumo.php",
+        data: datos,
+        success: function (datos) {
+           contenido = datos;
+        }
+    });
+    $("#identidad-text").html(contenido);
 }
 
 function CerrarModalServicioInsumo() {
@@ -340,7 +406,8 @@ function EliminarDatosServicioInsumo() {
     var codigo_detalle = $("#codigo_detalle_delete").val();
     var automovil = $('#auto-text').text();
     var servicio = $('#servicio-text').text();
-
+    var id_automovil = dameIdAutomovil(automovil);
+    var id_servicio = dameIdServicio(servicio);
     var datos = "delete_codigo_detalle=" + codigo_detalle;
 
     $.ajax({
@@ -361,5 +428,5 @@ function EliminarDatosServicioInsumo() {
         $('.modal-backdrop').remove();
     }
     ResetModalServicioInsumo();
-
+    actualizarCodigoIdentidad(id_automovil, id_servicio);
 }

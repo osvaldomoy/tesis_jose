@@ -1,4 +1,5 @@
 <?php
+
 //------------------ LISTA DE SERVICIOS - INSUMOS -----------------------------------------
 
 if (isset($_POST["dame_filtro"])) {
@@ -26,6 +27,102 @@ function dameConsultaServicioInsumo() {
     }
 }
 
+//------------------ OBTENER CODIGO SERVICIOS - INSUMOS -----------------------------------------
+
+if (isset($_POST["servicio_cod"]) and isset($_POST["automovil_cod"])) {
+    $servicio_cod = $_POST["servicio_cod"];
+    $automovil_cod = $_POST["automovil_cod"];
+}
+
+if (!empty($servicio_cod)and ! empty($automovil_cod)) {
+    dameCodigoIdentidad($servicio_cod, $automovil_cod);
+}
+
+function dameCodigoIdentidad($servicio_cod, $automovil_cod) {
+
+    require_once "../conexion/conexion.php";
+    $conexion = new Conexion();
+    $conexion->iniciarSesion();
+    $consulta = mysqli_query($conexion->dameConexion(), "SELECT dts.codigo_detalle_identidad
+    FROM detalle_servicio_insumo dts
+    JOIN servicios sr
+    ON sr.codigo_servicio = dts.codigo_servicio
+    WHERE dts.codigo_servicio = (SELECT sr.codigo_servicio
+    FROM servicios sr
+    WHERE sr.descripcion = '".$servicio_cod."') 
+    and dts.codigo_automovil = (SELECT a.id_automovil
+    FROM automovil a
+    JOIN marca mr
+    ON mr.id_marca = a.id_marca
+    JOIN modelo md
+    ON md.id_modelo = a.id_modelo
+    WHERE CONCAT(mr.descripcion, ' ', md.descripcion, ' ', a.anho) = '".$automovil_cod."') LIMIT 1");
+
+    if (mysqli_num_rows($consulta) > 0) {
+        while ($row = mysqli_fetch_array($consulta)) {
+            echo $row[0];
+        }
+    }
+    else {
+        echo 'Sin código';
+    }
+}
+
+//------------------ OBTENER ULTIMO CODIGO SERVICIOS - INSUMOS -----------------------------------------
+
+if (isset($_POST["ultimo"])) {
+    $dameUlti = $_POST["ultimo"];
+}
+
+if (!empty($dameUlti)) {
+    dameUltimoCodigo();
+}
+
+function dameUltimoCodigo() {
+
+    require_once "../conexion/conexion.php";
+    $conexion = new Conexion();
+    $conexion->iniciarSesion();
+    $consulta = mysqli_query($conexion->dameConexion(), "SELECT codigo_detalle_identidad "
+            . "FROM detalle_servicio_insumo ORDER BY codigo_detalle_identidad DESC LIMIT 1");
+
+    if (mysqli_num_rows($consulta) > 0) {
+        while ($row = mysqli_fetch_array($consulta)) {
+            echo $row[0];
+        }
+    }
+}
+
+//------------------ ACTUALIZAR CODIGO SERVICIOS - INSUMOS -----------------------------------------
+
+if (isset($_POST["id_auto"]) and isset($_POST["id_servicio"])) {
+    $id_auto = $_POST["id_auto"];
+    $id_servicio_cod = $_POST["id_servicio"];
+}
+
+if (!empty($id_auto) and !empty($id_servicio_cod)) {
+    ActualizaCodigoIdentidad($id_auto, $id_servicio_cod);
+}
+
+function ActualizaCodigoIdentidad($id_auto, $id_servicio_cod) {
+
+    require_once "../conexion/conexion.php";
+    $conexion = new Conexion();
+    $conexion->iniciarSesion();
+    $consulta = mysqli_query($conexion->dameConexion(), "SELECT codigo_detalle_identidad "
+            . "FROM detalle_servicio_insumo "
+            . "WHERE codigo_automovil = ".$id_auto." "
+            . "AND codigo_servicio = ".$id_servicio_cod." LIMIT 1");
+
+    if (mysqli_num_rows($consulta) > 0) {
+        while ($row = mysqli_fetch_array($consulta)) {
+            echo $row[0];
+        }
+    }else {
+        echo 'Sin código';
+    }
+}
+
 //-------------------------- SELECCIONAR COLUMNAS DE LA TABLA SERVICIOS -----------------------------------------
 
 
@@ -34,7 +131,7 @@ if (isset($_POST["servicio"]) and isset($_POST["automovil"])) {
     $automovil = $_POST["automovil"];
 }
 
-if (!empty($servicio)and !empty($automovil)) {
+if (!empty($servicio)and ! empty($automovil)) {
     dameTodoServicioInsumo($servicio, $automovil);
 }
 
@@ -48,12 +145,12 @@ function dameTodoServicioInsumo($servicio, $automovil) {
             . "JOIN insumos ins ON ins.codigo_insumo = dts.codigo_insumo "
             . "JOIN servicios sr ON sr.codigo_servicio = dts.codigo_servicio "
             . "WHERE dts.codigo_servicio = (SELECT sr.codigo_servicio "
-            . "FROM servicios sr WHERE sr.descripcion = '".$servicio."') "
+            . "FROM servicios sr WHERE sr.descripcion = '" . $servicio . "') "
             . "AND dts.codigo_automovil = (SELECT a.id_automovil "
             . "FROM automovil a "
             . "JOIN marca mr ON mr.id_marca = a.id_marca "
             . "JOIN modelo md ON md.id_modelo = a.id_modelo "
-            . "WHERE CONCAT(mr.descripcion, ' ', md.descripcion) = '".$automovil."')");
+            . "WHERE CONCAT(mr.descripcion, ' ', md.descripcion, ' ', a.anho) = '" . $automovil . "')");
 
     $cont = 1;
     if (mysqli_num_rows($consulta) > 0) {
@@ -120,14 +217,16 @@ require_once("../conexion/conexion.php");
 require_once("../modelos/detalle_servicio_insumo.php");
 
 if (isset($_POST["id_insumo"]) and isset($_POST["id_automovil"]) and isset($_POST["id_servicio"])
-        and isset($_POST["cantidad"])) {
+        and isset($_POST["cantidad"]) and isset($_POST["codigo_identidad"])) {
 
+    $id_detalle_identidad = $_POST["codigo_identidad"];
     $id_insumo = $_POST["id_insumo"];
     $id_automovil = $_POST["id_automovil"];
     $id_servicio = $_POST["id_servicio"];
     $cantidad = $_POST["cantidad"];
 
-    $guardarServicioInsumo = new DetalleServicioInsumo($id_insumo, $id_servicio, $id_automovil, $cantidad);
+    $guardarServicioInsumo = new DetalleServicioInsumo($id_detalle_identidad, $id_insumo, 
+            $id_servicio, $id_automovil, $cantidad);
 }
 
 if (!empty($guardarServicioInsumo)) {
@@ -136,7 +235,9 @@ if (!empty($guardarServicioInsumo)) {
 
 function GuardarDatosServicioInsumo($guardarServicioInsumo) {
 
-    $sql = "INSERT INTO detalle_servicio_insumo (codigo_insumo, codigo_servicio, codigo_automovil, cantidad) VALUES ("
+    $sql = "INSERT INTO detalle_servicio_insumo (codigo_detalle_identidad, codigo_insumo, "
+            . "codigo_servicio, codigo_automovil, cantidad) VALUES ('"
+            . $guardarServicioInsumo->getCodigoDetalleIdentidad() . "',"
             . $guardarServicioInsumo->getCodigoInsumo() . ","
             . $guardarServicioInsumo->getCodigoServicio() . ","
             . $guardarServicioInsumo->getCodigoAutomovil() . ","
@@ -159,7 +260,7 @@ if (isset($_POST["id_detalle"]) and isset($_POST["up_id_insumo"]) and isset($_PO
     $id_detalle = $_POST["id_detalle"];
     $up_id_insumo = $_POST["up_id_insumo"];
     $up_cantidad = $_POST["up_cantidad"];
-    
+
     $modificarServicioInsumo = new DetalleServicioInsumo($id_detalle, $up_id_insumo, $up_cantidad);
 }
 

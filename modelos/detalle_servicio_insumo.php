@@ -3,6 +3,7 @@
 class DetalleServicioInsumo {
 
     private $codigo_detalle;
+    private $codigo_detalle_identidad;
     private $codigo_insumo;
     private $codigo_servicio;
     private $codigo_automovil;
@@ -41,17 +42,9 @@ class DetalleServicioInsumo {
         $this->cantidad = $cantidad;
     }
     
-    function __construct4($codigo_insumo, $codigo_servicio, $codigo_automovil, $cantidad) {
+    function __construct5($codigo_detalle_identidad, $codigo_insumo, $codigo_servicio, $codigo_automovil, $cantidad) {
 
-        $this->codigo_insumo = $codigo_insumo;
-        $this->codigo_servicio = $codigo_servicio;
-        $this->codigo_automovil = $codigo_automovil;
-        $this->cantidad = $cantidad;
-    }
-    
-    function __construct5($codigo_detalle, $codigo_insumo, $codigo_servicio, $codigo_automovil, $cantidad) {
-
-        $this->codigo_detalle = $codigo_detalle;
+        $this->codigo_detalle_identidad = $codigo_detalle_identidad;
         $this->codigo_insumo = $codigo_insumo;
         $this->codigo_servicio = $codigo_servicio;
         $this->codigo_automovil = $codigo_automovil;
@@ -62,6 +55,10 @@ class DetalleServicioInsumo {
 
     public function getCodigoDetalle() {
         return($this->codigo_detalle);
+    }
+    
+    public function getCodigoDetalleIdentidad() {
+        return($this->codigo_detalle_identidad);
     }
 
     public function getCodigoInsumo() {

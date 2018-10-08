@@ -59,14 +59,14 @@ function dameFiltroAutomovil($filtro_automovil) {
     require_once "../conexion/conexion.php";
     $conexion = new Conexion();
     $conexion->iniciarSesion();
-    $consulta = mysqli_query($conexion->dameConexion(), "SELECT CONCAT(mr.descripcion, ' ',md.descripcion) 
+    $consulta = mysqli_query($conexion->dameConexion(), "SELECT CONCAT(mr.descripcion, ' ',md.descripcion, ' ', a.anho) 
     FROM automovil a 
     JOIN marca mr 
     ON mr.id_marca = a.id_marca 
     JOIN modelo md 
     ON md.id_modelo = a.id_modelo 
-    WHERE concat(mr.descripcion, ' ', md.descripcion) LIKE '".$filtro_automovil."%' 
-    OR CONCAT(md.descripcion, ' ', mr.descripcion) LIKE '".$filtro_automovil."%'");
+    WHERE concat(mr.descripcion, ' ', md.descripcion, ' ', a.anho) LIKE '".$filtro_automovil."%' 
+    OR CONCAT(md.descripcion, ' ', mr.descripcion, ' ', a.anho) LIKE '".$filtro_automovil."%'");
 
     if (mysqli_num_rows($consulta) > 0) {
         while ($row = mysqli_fetch_array($consulta)) {
@@ -233,7 +233,7 @@ function dameIdAutomovil($id_automovil) {
             . "FROM automovil a "
             . "JOIN marca mr ON mr.id_marca = a.id_marca "
             . "JOIN modelo md ON md.id_modelo = a.id_modelo "
-            . "WHERE CONCAT (mr.descripcion, ' ', md.descripcion) = '".$id_automovil."'");
+            . "WHERE CONCAT (mr.descripcion, ' ', md.descripcion, ' ', a.anho) = '".$id_automovil."'");
     if (mysqli_num_rows($consulta) > 0) {
 
         while ($row = mysqli_fetch_array($consulta)) {
