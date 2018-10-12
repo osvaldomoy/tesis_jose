@@ -218,7 +218,9 @@ class ControladorServicio {
                     echo "</tr>";
                     $cont++;
                 }
+                
             }
+            
             echo "</tbody>";
         } else {
             echo " <p>Aún no hay registros en la base de datos</p>";

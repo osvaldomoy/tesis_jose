@@ -303,12 +303,27 @@ function terminarAtencion() {
     $sql = "INSERT INTO   clientes_atendidos (codigo_cliente, codigo_servicio, boleta, tiempo, tiempo_adicional, fecha, estado, id_usuario)  
     SELECT codigo_cliente, codigo_servicio, boleta, tiempo, tiempo_adicional, fecha, estado, id_usuario FROM clientes_en_espera WHERE codigo_cliente_en_espera = " . $identidadspm . "";
     $conexion->dameConexion()->query($sql);
+    
+    
     //eliminamos de la tabla cliente espera
     $sql = "DELETE FROM clientes_en_espera  WHERE codigo_cliente_en_espera = " . $identidadspm . "";
 
 
     $conexion->dameConexion()->query($sql);
-    
+    //obtenemos el id de la tabla antendidos
+    $consulta = mysqli_query($conexion->dameConexion(), "SELECT codigo_clientes_atendidos FROM clientes_atendidos  
+    ORDER BY codigo_clientes_atendidos  DESC LIMIT 1");
+    $id_atendido = 0;
+    if (mysqli_num_rows($consulta) > 0) {
+
+        while ($row = mysqli_fetch_row($consulta)) {
+            $id_atendido = $row[0];
+            
+        }
+    }
+    //guardamos en la tabla temporal de atendidos
+    $sql = "INSERT INTO   terminado_mostrar (id_cliente_atendido) VAlues (".$id_atendido.")";
+    $conexion->dameConexion()->query($sql);
     //RESTAMOS LOS STOCK
     $consulta2 = mysqli_query($conexion->dameConexion(), "SELECT dsi.codigo_insumo, dsi.cantidad
             FROM  detalle_servicio_insumo dsi
@@ -329,4 +344,45 @@ function terminarAtencion() {
 //-------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------
+if (isset($_POST['terminado-validacion'])) {
+    terminadoValidacion();
+}
+
+
+function terminadoValidacion() {
+
+    require_once "../conexion/conexion.php";
+    $conexion = new Conexion();
+    $conexion->iniciarSesion();
+    session_start();
+    $id_usuario = $_SESSION['id_usuario'];
+    $identidadspm = 0;
+    $codigo_identidad_detalle = "";
+    $consulta = mysqli_query($conexion->dameConexion(), "SELECT Concat(c.nombre,' ',c.apellido), s.descripcion
+            FROM terminado_mostrar t
+            JOIN clientes_atendidos ca
+            ON ca.codigo_clientes_atendidos = t.id_cliente_atendido
+            JOIN clientes c  
+            ON c.codigo_cliente = ca.codigo_cliente
+            JOIN servicios s 
+            ON s.codigo_servicio = ca.codigo_servicio");
+
+    if (mysqli_num_rows($consulta) > 0) {
+
+        while ($row = mysqli_fetch_row($consulta)) {
+            $identidadspm = $row[0];
+            $codigo_identidad_detalle = $row[1];
+        }
+    }
+    
+    
+    
+    
+}
+
+//-------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------
+
 ?>

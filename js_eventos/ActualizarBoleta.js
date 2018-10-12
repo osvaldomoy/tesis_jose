@@ -116,3 +116,18 @@ function CambiarMinuto(hora,minuto,segundo){
         
 
     }
+    
+    function terminadoVerificar(){
+        $.ajax({
+		type: "POST",
+		async: false,
+		cache: false,
+		url: "../controladores/ControladorServicio.php",
+		data: "lista=123",
+		
+		success: function(datos) {
+			
+			contenido += datos;
+		}
+	});
+    }
