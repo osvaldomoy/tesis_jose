@@ -10,7 +10,12 @@
 <link rel="stylesheet" href="../style.css">
 <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
 <link rel="shortcut icon" href="../images/icono.png" />
+<script src="../js/bootstrap.min.js"></script>
+        
+        <script async="true" src="../js_eventos/ActualizarBoleta.js"></script>
+
 </head>
+
 <body style="background-image: url(../img/fondo-espera.jpg); 
 			 background-repeat: no-repeat; 
 			 background-size: cover; 
@@ -86,7 +91,7 @@
   </div>
     
    <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade" id="modalTerminado" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document" style="justify-content: center;">
                 <div class="modal-content" style="width: 800px;">
                     <div class="modal-header">
@@ -97,13 +102,19 @@
                     </div>
                     
                     <div class="modal-body terminado-info">
-                       
-
+                        <img src="../images/logo.png" alt="" style="margin: 0px 25%; width: 250px;">
+                        <hr>
+                        <hr>
+                        <h1 style="text-align: center;">Cliente</h1>
+                        <h3 style="text-align: center;">Luis Guzman</h3>
+                        <hr>
+                        <h1 style="text-align: center;">Servicio</h1>
+                        <h4 style="text-align: center;">Calibracion</h4>
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary" onClick="GuardarClienteEspera();">Listo</button>
+                        
+                        
                     </div>
                     
 
@@ -114,6 +125,18 @@
 
 
 
-<script async="true" src="../js_eventos/ActualizarBoleta.js"></script>
+
 </body>
+
+<script>
+    $(document).ready(function()
+      {
+         setTimeout("modalTerminando()", 2000);
+         
+//         
+      });
+        
+        
+    
+</script>
 </html>

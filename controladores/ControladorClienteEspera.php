@@ -354,10 +354,7 @@ function terminadoValidacion() {
     require_once "../conexion/conexion.php";
     $conexion = new Conexion();
     $conexion->iniciarSesion();
-    session_start();
-    $id_usuario = $_SESSION['id_usuario'];
-    $identidadspm = 0;
-    $codigo_identidad_detalle = "";
+    
     $consulta = mysqli_query($conexion->dameConexion(), "SELECT Concat(c.nombre,' ',c.apellido), s.descripcion
             FROM terminado_mostrar t
             JOIN clientes_atendidos ca
@@ -365,19 +362,53 @@ function terminadoValidacion() {
             JOIN clientes c  
             ON c.codigo_cliente = ca.codigo_cliente
             JOIN servicios s 
-            ON s.codigo_servicio = ca.codigo_servicio");
+            ON s.codigo_servicio = ca.codigo_servicio LIMIT 1");
 
+    
     if (mysqli_num_rows($consulta) > 0) {
 
         while ($row = mysqli_fetch_row($consulta)) {
-            $identidadspm = $row[0];
-            $codigo_identidad_detalle = $row[1];
+            echo "<img src='../images/logo.png'  style='margin: 0px 25%; width: 250px;'>
+                        <hr>
+                        <hr>
+                        <h1 style='text-align: center;'>Cliente</h1>
+                        <h3 style='text-align: center;'>".$row[0]."</h3>
+                        <hr>
+                        <h1 style='text-align: center;'>Servicio</h1>
+                        <h4 style='text-align: center;'>".$row[1]."</h4>";
         }
+    }else{
+        echo "0";
     }
     
     
     
     
+}
+
+
+if (isset($_POST['terminado-eliminar'])) {
+    eliminarTerminado();
+}
+
+
+function eliminarTerminado() {
+    
+    require_once "../conexion/conexion.php";
+    $conexion = new Conexion();
+    $conexion->iniciarSesion();
+    $id_eliminar = 0;
+    $consulta = mysqli_query($conexion->dameConexion(), "SELECT id_terminado FROM terminado_mostrar ORDER BY id_terminado ASC LIMIT 1");
+    if (mysqli_num_rows($consulta) > 0) {
+
+        while ($row = mysqli_fetch_row($consulta)) {
+            $id_eliminar = $row[0];
+        }
+    }
+    
+    $sql = "DELETE FROM terminado_mostrar WHERE id_terminado = ".$id_eliminar;
+
+    $conexion->dameConexion()->query($sql);
 }
 
 //-------------------------------------------------------------------------------------------

@@ -1,6 +1,7 @@
 window.onload = function(){
 	//ActualizaBoleta();
 	actualizarListadeEspera();
+        
 }
 
 function actualizarListadeEspera(){
@@ -117,17 +118,57 @@ function CambiarMinuto(hora,minuto,segundo){
 
     }
     
+    function modalTerminando(){
+        
+        timer = setTimeout(modalTerminando, 5000);
+        terminadoVerificar();
+    }
+    
     function terminadoVerificar(){
+
+
+    
+        
+        
+        var contenido ="" ;
         $.ajax({
 		type: "POST",
 		async: false,
 		cache: false,
-		url: "../controladores/ControladorServicio.php",
-		data: "lista=123",
+		url: "../controladores/ControladorClienteEspera.php",
+		data: "terminado-validacion=123",
 		
 		success: function(datos) {
 			
-			contenido += datos;
+			contenido = datos;
 		}
 	});
+        
+        
+        if(contenido.length == 1){
+        }else{
+            $('.terminado-info').html(contenido);
+            $('#modalTerminado').modal("show");
+            setTimeout ('', 5000); 
+            
+            $.ajax({
+                    type: "POST",
+                    async: false,
+                    cache: false,
+                    url: "../controladores/ControladorClienteEspera.php",
+                    data: "terminado-eliminar=123",
+
+                    success: function(datos) {
+
+                        $('#modalTerminado').modal("hide");
+                    }
+            });
+            
+            
+            
+            
+        }
+        
+        
+        
     }
