@@ -120,55 +120,80 @@ function CambiarMinuto(hora,minuto,segundo){
     
     function modalTerminando(){
         
-        timer = setTimeout(modalTerminando, 5000);
+        timer = setTimeout(modalTerminando, 4000);
         terminadoVerificar();
     }
     
     function terminadoVerificar(){
 
 
-    
-        
-        
-        var contenido ="" ;
+    $('#modalTerminado').modal("hide");
+        var existe = -1;
         $.ajax({
 		type: "POST",
 		async: false,
 		cache: false,
 		url: "../controladores/ControladorClienteEspera.php",
-		data: "terminado-validacion=123",
+		data: "terminado-existe=123",
 		
 		success: function(datos) {
 			
-			contenido = datos;
+			existe = datos;
 		}
 	});
         
-        
-        if(contenido.length == 1){
-        }else{
-            $('.terminado-info').html(contenido);
-            $('#modalTerminado').modal("show");
-            setTimeout ('', 5000); 
+        if(existe == 1){
             
+        var contenido ="" ;
             $.ajax({
                     type: "POST",
                     async: false,
                     cache: false,
                     url: "../controladores/ControladorClienteEspera.php",
-                    data: "terminado-eliminar=123",
+                    data: "terminado-validacion=123",
 
                     success: function(datos) {
 
-                        $('#modalTerminado').modal("hide");
+                            contenido = datos;
                     }
             });
-            
-            
-            
-            
+
+
+            if(contenido.length == 1){
+            }else{
+                
+
+
+                
+                
+                
+                $('.terminado-info').html(contenido);
+                $('#modalTerminado').modal("show");
+                setTimeout("", 5000);
+                
+                 
+                 $('#modalTerminado').modal("hide");
+                var terminado = -1;
+                $.ajax({
+                        type: "POST",
+                        async: false,
+                        cache: false,
+                        url: "../controladores/ControladorClienteEspera.php",
+                        data: "terminado-eliminar=123",
+
+                        success: function(datos) {
+                            terminado = datos;
+                        }
+                });
+                 
+
+            }
         }
         
         
         
+    }
+    
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
     }

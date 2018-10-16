@@ -385,6 +385,44 @@ function terminadoValidacion() {
     
     
 }
+//-------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------
+if (isset($_POST['terminado-existe'])) {
+    terminadoExiste();
+}
+
+
+function terminadoExiste() {
+
+    require_once "../conexion/conexion.php";
+    $conexion = new Conexion();
+    $conexion->iniciarSesion();
+    
+    $consulta = mysqli_query($conexion->dameConexion(), "SELECT Concat(c.nombre,' ',c.apellido), s.descripcion
+            FROM terminado_mostrar t
+            JOIN clientes_atendidos ca
+            ON ca.codigo_clientes_atendidos = t.id_cliente_atendido
+            JOIN clientes c  
+            ON c.codigo_cliente = ca.codigo_cliente
+            JOIN servicios s 
+            ON s.codigo_servicio = ca.codigo_servicio LIMIT 1");
+
+    
+    if (mysqli_num_rows($consulta) > 0) {
+
+        while ($row = mysqli_fetch_row($consulta)) {
+            echo 1;
+        }
+    }else{
+        echo 0;
+    }
+    
+    
+    
+    
+}
 
 
 if (isset($_POST['terminado-eliminar'])) {
@@ -409,6 +447,8 @@ function eliminarTerminado() {
     $sql = "DELETE FROM terminado_mostrar WHERE id_terminado = ".$id_eliminar;
 
     $conexion->dameConexion()->query($sql);
+    
+    echo 0;
 }
 
 //-------------------------------------------------------------------------------------------
