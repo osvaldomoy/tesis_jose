@@ -191,6 +191,12 @@
                                     <div class="menu-text">Insumos - <br>Servicios</div>
                                 </button>
                             </div>
+                            <div class="col-sm">
+                                <button class="btn btn-primary btn-menu" type="submit" onClick="MostrarInformes();">
+                                    <div class="menu-icon"><h1><i class="fas fa-paperclip"></i></h1></div>
+                                    <div class="menu-text">Informes</div>
+                                </button>
+                            </div>
                         </div>
                     </div>
 

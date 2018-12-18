@@ -409,6 +409,26 @@ function MostrarMenuInsumos_Servicios() {
     MostrarListaServiciosInsumos();
 
 }
+//------------------------------- MOSTRAT INFORMES ------------------------------------------------
+
+function MostrarInformes() {
+
+    document.getElementById("contenedor-tablas").style.display = "block";
+    var contenido = "";
+    $.ajax({
+        type: "POST",
+        async: false,
+        cache: false,
+        url: "menu_Acciones/Vista_informe.php",
+        success: function (datos) {
+            contenido += datos;
+        }
+    });
+
+    $("#contenedor-tablas").html(contenido);
+    
+
+}
 
 //----------------- FILTRAR SERVICIO -----------------------------
 
